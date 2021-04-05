@@ -59,29 +59,27 @@ int     read_line(t_string *s1, t_string *s2, t_io_read *r) {
 
     if (r->index >= r->size)
         return ((t_mode)end);
-    mode = research;
     index_eq = 0;
     index_start = r->index;
     len = 0;
     while (r->index < r->size && r->buffer[r->index] != '\n') {
-        if (r->buffer[r->index] == '=') {
+        if (r->buffer[r->index] == '=' && index_eq == 0) {
             index_eq = r->index;
         }
         r->index++;
         len++;
     }
     r->index++;
-    if (index_eq != 0) {
-        mode = add;
+    if (r->buffer[index_start] == '!') {
+        *s1 = create_string(r->buffer + index_start + 1, len - 1);
+        mode = del;
+    } else if (index_eq != 0) {
         *s1 = create_string(r->buffer + index_start, index_eq - index_start);
         *s2 = create_string(r->buffer + index_eq + 1, len - (index_eq - index_start) - 1);
+        mode = add;
     } else {
         *s1 = create_string(r->buffer + index_start, len);
-        if (s1->buffer[0] == '!') {
-            mode = del;
-            s1->buffer++;
-            s1->len--;
-        }
+        mode = research;
     }
     return (mode);
 }

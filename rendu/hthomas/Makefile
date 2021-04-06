@@ -6,7 +6,7 @@
 #    By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 15:05:09 by hthomas           #+#    #+#              #
-#    Updated: 2021/04/06 08:01:54 by hthomas          ###   ########.fr        #
+#    Updated: 2021/04/06 11:22:07 by hthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,8 @@ LIBFT		=	libft.a
 LIBFTDIR	=	libft/
 LIBFTLINK	=	-L $(LIBFTDIR) -lft
 
-SRCS		=	srcs/find_median.c			\
-				srcs/main.c					\
+SRCS		=	srcs/main.c					\
 				srcs/print.c				\
-				srcs/scan_input.c 			\
 				srcs/utils.c
 
 ########################### EXEC

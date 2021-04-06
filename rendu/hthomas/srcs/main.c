@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 11:16:36 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 11:17:09 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,6 @@ static uint64_t	hash(char *key, size_t size_database)
 		i++;
 	}
 	return (value);
-}
-
-int	in_charset(char const c, char const *charset, size_t *pos)
-{
-	*pos = 0;
-	while (charset[*pos])
-	{
-		if (c == charset[*pos])
-			return (1);
-		(*pos)++;
-	}
-	return (0);
 }
 
 char	*find_value(t_dlist **table, char *key)

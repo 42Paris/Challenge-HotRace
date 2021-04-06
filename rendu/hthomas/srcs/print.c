@@ -6,15 +6,20 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 16:37:07 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 11:21:12 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 14:54:02 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
 
-void	print_clean_dlist(t_dlist *output)
+char	*get_str(t_list *outputs)
 {
-	t_dlist	*tmp;
+	return ((char *)(outputs->content));
+}
+
+void	print_clean_dlist(t_list *output)
+{
+	t_list	*tmp;
 
 	tmp = output;
 	if (tmp)

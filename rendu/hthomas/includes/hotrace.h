@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 11:21:53 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 14:54:09 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,15 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+# include <stdbool.h>
 
+# define SIZE_DATABASE	10000
 # define MAX_CHAR	126
 # define MIN_CHAR	32
+
+# define ENTRY		'E'
+# define SEARCH		'S'
+# define DELETE		'D'
 
 # define SHORT		1
 # define LONG		2
@@ -36,8 +39,8 @@ typedef struct	s_data
 
 typedef struct	s_dict
 {
-	t_dlist		*keys;
-	t_dlist		*values;
+	t_list		*keys;
+	t_list		*values;
 	size_t		size;
 }				t_dict;
 
@@ -52,7 +55,7 @@ typedef struct			s_chain_tab
 /*
 ** print
 */
-void			print_clean_dlist(t_dlist *output);
+void			print_clean_dlist(t_list *output);
 
 /*
 ** utils

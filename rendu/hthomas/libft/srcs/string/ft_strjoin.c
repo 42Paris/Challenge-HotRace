@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 16:29:42 by hthomas           #+#    #+#             */
-/*   Updated: 2021/03/25 16:42:07 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 14:34:39 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	lens1 = ft_strlen(s1);
 	lens2 = ft_strlen(s2);
 	new = malloc((lens1 + lens2 + 1) * sizeof(char));
-	if (new)
+	if (!new)
 		return (NULL);
 	ft_memmove(new, s1, lens1);
 	ft_memmove(new + lens1, s2, lens2);

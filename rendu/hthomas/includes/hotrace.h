@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 17:11:15 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:06:36 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-# define SIZE_DATABASE	5000000
-# define PRIME_1		619
-# define PRIME_2		43
+# define SIZE_DATABASE	49307
+# define PRIME_1		13
+# define PRIME_2		7
 
 # define MAX_CHAR	126
 # define MIN_CHAR	32

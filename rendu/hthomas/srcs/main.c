@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 17:24:46 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:06:43 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,39 @@ char	*find_value(t_dlist **table, char *key)
 	return (ft_strdup("Not found"));
 }
 
+void	remove_from_table(t_dlist ***table, char *key)
+{
+	t_dlist		*tmp;
+	t_dlist		*start;
+	uint64_t	h;
+
+	h = hash(key, SIZE_DATABASE);
+	// printf("find_value: %s\n", key);
+	if ((*table)[h])
+	{
+		// start = (*table)[h];
+		t_data *data = get_data((*table)[h]);
+		// printf("key  : %s\nvalue: %s\n", data->key, data->value);
+		if (!ft_strcmp(key, data->key))
+		{
+			// printf("delete\n");
+			free(ft_dlstremove_one((*table), (*table)[h]));
+			return ;
+		}
+		tmp = (*table)[h]->next;
+		while (tmp != (*table)[h])
+		{
+			data = get_data(tmp);
+			if (!ft_strcmp(key, data->key))
+			{
+				free(ft_dlstremove_one((*table), tmp));
+				return ;
+			}
+			tmp = tmp->next;
+		}
+	}
+}
+
 int		main(int argc, char const *argv[])
 {
 	char	*line;
@@ -151,9 +184,7 @@ int		main(int argc, char const *argv[])
 			ft_dlstadd_back(&outputs, ft_dlstnew(output));
 		}
 		else if (type == DELETE)
-		{
-			/* code */
-		}
+			remove_from_table(&table, data->key);
 		else
 			free(line);
 		// free(key);

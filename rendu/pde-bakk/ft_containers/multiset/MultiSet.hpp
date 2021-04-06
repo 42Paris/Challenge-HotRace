@@ -1,0 +1,140 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   MultiSet.hpp                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: peerdb <peerdb@student.codam.nl>             +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/09/27 23:49:18 by peerdb        #+#    #+#                 */
+/*   Updated: 2020/11/06 18:11:10 by peerdb        ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef SET_HPP
+# define SET_HPP
+
+# include "MapBase.hpp"
+
+namespace ft {
+
+template < class Key, class Compare = less<Key>, class Alloc = std::allocator<Key> >
+	class multiset : public MapBase<const Key, const Key, const Key, Compare, Alloc>  {
+	public:
+		typedef MapBase<const Key, const Key, const Key, Compare, Alloc>	Base;
+		typedef Key					key_type;
+		typedef Key					value_type;
+		typedef	Compare				key_compare;
+		typedef	Compare				value_compare;
+		typedef Alloc				allocator_type;
+		typedef value_type&			reference;
+		typedef const value_type&	const_reference;
+		typedef value_type*			pointer;
+		typedef	const value_type*	const_pointer;
+		using typename				Base::mapnode;
+		using typename				Base::iterator;
+		using typename				Base::const_iterator;
+		using typename				Base::reverse_iterator;
+		using typename				Base::const_reverse_iterator;
+		using typename				Base::difference_type;
+		using typename				Base::size_type;
+
+	// Constructors, destructors and operator=
+		explicit multiset(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+				: Base(comp, alloc) {
+		}
+		template <class InputIterator>
+		multiset (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type(),
+					typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0)
+				: Base(comp, alloc) {
+			this->insert(first, last);
+		}
+		multiset (const multiset& x) : Base() {
+			this->insert(x.begin(), x.end());
+		}
+		virtual	~multiset() { }
+
+		multiset& operator= (const multiset& x) {
+			if (this != &x) {
+				this->clear();
+				this->_alloc = x._alloc;
+				this->_comp = x._comp;
+				this->insert(x.begin(), x.end());
+			}
+			return (*this);
+		}
+	// Iterator functions: see MapBase
+	// Capacity functions: see MapBase
+		virtual size_type	max_size() const {
+			return this->_alloc.max_size() / sizeof(pointer);
+		}
+	// Modifier functions: see Base
+		std::pair<iterator, bool>	insert(const value_type& val) {
+			if (this->_size == 0)
+				return (std::make_pair(iterator(Base::insert_root(val)), true));
+			mapnode	*it(this->_root);
+			while (it) {
+				if (this->key_comp()(val, it->data)) {
+					if (it->left && it->left != this->_first)
+						it = it->left;
+					else return std::make_pair(iterator(Base::insert_left(it, val)), true);
+				}
+				else {
+					if (it->right && it->right != this->_last)
+						it = it->right;
+					else return std::make_pair(iterator(Base::insert_right(it, val)), true);
+				}
+			}
+			return std::make_pair(iterator(it), false);
+		}
+		iterator				insert(iterator position, const value_type& val) {
+			(void)position;
+			return this->insert(val).first;
+		}
+		template <class InputIterator>
+		void					insert(InputIterator first, InputIterator last, typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
+			while (first != last) {
+				this->insert(*first);
+				++first;
+			}
+		}
+		void		erase(iterator position) {
+			mapnode	*erase = this->findbyiterator(position);
+			if (erase == this->_last)
+				return ;
+			this->RedBlackDelete(erase);
+			delete erase;
+			--this->_size;
+		}
+		size_type	erase(const key_type& k) {
+			size_type ret = 0;
+			mapnode	*trav(this->_root);
+			while (trav) {
+				if (key_compare()(k, trav->data)) {
+					trav = trav->left;
+				}
+				else if (key_compare()(trav->data, k))
+					trav = trav->right;
+				else {
+					mapnode	*erase(trav);
+					trav = trav->parent;
+					Base::RedBlackDelete((erase));
+					delete erase;
+					--this->_size;
+					++ret;
+					if (!trav)
+						trav = this->_root;
+				}
+			}
+			return ret;
+		}
+	// Observer functions: see Base
+
+	// Operation functions: see Base
+	};
+
+/* Relational operators (multiset): see Base */
+
+} // ft namespace
+
+
+#endif

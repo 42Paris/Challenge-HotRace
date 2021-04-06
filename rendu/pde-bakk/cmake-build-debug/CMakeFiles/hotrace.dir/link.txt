@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/hotrace.dir/srcs/main.cpp.o  -o hotrace 

@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 06:57:10 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 08:08:21 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,32 @@ int	in_charset(char const c, char const *charset, int *pos)
 	*pos = 0;
 	while (charset[*pos])
 	{
-		if (c == charset[*pos++])
+		if (c == charset[*pos])
 			return (1);
+		(*pos)++;
 	}
 	return (0);
 }
 
-char	*find_value(t_dict *dict, char *key)
+char	*find_value(t_chain_tab *dict, char *key)
 {
-
+	if (!*key)
+		return (dict->value);
+	return (find_value(dict->nexts[(int)*key - MIN_CHAR], &key[1]));
 }
 
-void	add_to_dict(t_dict *dict, char *key, char *value)
+void	add_to_dict(t_chain_tab *dict, char *key, char *value)
 {
-
+	if (!*key)
+	{
+		dict->value = value;
+		return ;
+	}
+	dict->letters[(int)*key - MIN_CHAR]++;
+	add_to_dict(dict->nexts[(int)*key - MIN_CHAR], &key[1], value);
 }
 
-int is_entry(char *line, char **key, char **value)
+int is_valid_entry(char *line, char **key, char **value)
 {
 	int	pos;
 	int	ret;
@@ -45,50 +54,64 @@ int is_entry(char *line, char **key, char **value)
 	return (ret);
 }
 
-int is_in_dict(t_dict *dict, char *key)
+void	malloc_dict(t_chain_tab **dict)
 {
-	return (1);
+	if (!(*dict) && !((*dict) = malloc(sizeof(**dict))))
+		exit(-1);
+	for (size_t i = 0; i < MAX_CHAR - MIN_CHAR + 1; i++)
+		(*dict)->letters[i] = 0;
 }
 
-void	main2(t_dlist **a, t_dlist **b)
+int is_in_dict(t_chain_tab *dict, char *key)
 {
-	char	*line;
-	char	*key;
-	char	*value;
-	t_dict	*dict;
-	t_dlist	*output;
+	if (!*key)
+		return (1);
+	malloc_dict(&dict);
 
-	dict = NULL;
-	output = NULL;
-	while (get_next_line(&line, 0))
-	{
-		if (is_entry(line, &key, &value) && !is_in_dict(dict, key))
-			add_to_dict(dict, key, value);
-		else
-			ft_dlstadd_back(&output, ft_dlstnew(find_value(dict, key)));
-		// free(key);
-		// free(value);
-		// free(line);
-	}
-	free(line);
-	ft_dlstclear(b, *b, free);
-	if (*b)
-		printf("KO\n");
-	else
-		printf("OK\n");
+
+	printf("is_in_dict1:%d\n", (int)*key - MIN_CHAR);
+	printf("is_in_dict2:%d\n", dict->letters[(int)*key - MIN_CHAR]);
+	if (dict->letters[(int)*key - MIN_CHAR])
+		return (is_in_dict(dict->nexts[(int)*key - MIN_CHAR], &key[1] /*key + 1*/)); //! todo
+	return (0);
 }
 
 int		main(int argc, char const *argv[])
 {
-	t_dlist	*a;
-	t_dlist	*b;
-	int		print;
+	char	*line;
+	char	*key;
+	char	*value;
+	t_chain_tab	*dict;
+	t_dlist	*outputs;
 
-	b = NULL;
 	if (argc != 1)
 		return (0);
-	a = scan_input(argc, argv, &print);
-	main2(&a, &b);
-	ft_dlstclear(&a, a, free);
+	(void) argv;
+	dict = NULL;
+	outputs = NULL;
+	while (get_next_line(&line, 0))
+	{
+		if (is_valid_entry(line, &key, &value))
+		{
+			printf("main:%s: %s\n", key, value);
+			if (!is_in_dict(dict, key))
+				add_to_dict(dict, key, value);
+			else
+			{
+				char *output = ft_strjoin(key, ": ");
+				if ((value = find_value(dict, key)))
+					output = ft_strjoin_free(output, value);
+				else
+					output = ft_strjoin_free(output, "Not found");
+				ft_dlstadd_back(&outputs, ft_dlstnew(output));
+			}
+		}
+		else
+			free(line);
+		// free(key);
+		// free(value);
+	}
+	print_clean_dlist(outputs);
+	free(line);
 	return (0);
 }

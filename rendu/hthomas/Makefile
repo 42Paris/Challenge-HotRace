@@ -6,7 +6,7 @@
 #    By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 15:05:09 by hthomas           #+#    #+#              #
-#    Updated: 2021/04/06 06:13:21 by hthomas          ###   ########.fr        #
+#    Updated: 2021/04/06 08:01:54 by hthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	hotrace
 
 CC			=	clang
 CFLAGS		=	-Ofast -Wall -Werror -Wextra
-LDFLAGS		=	#-g3 -fsanitize=address #-fsanitize=leak
+LDFLAGS		=	-g3 -fsanitize=address #-fsanitize=leak
 
 OBJS		=	$(SRCS:.c=.o)
 INCL		=	includes/
@@ -62,6 +62,9 @@ re:			fclean all
 ########################### TEST
 
 test:		$(NAME)
+	./$<
+
+test_time:		$(NAME)
 	time ./$<
 
 test_leaks:	$(NAME)

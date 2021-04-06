@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 06:16:21 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 07:15:09 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_dict
 
 typedef struct			s_chain_tab
 {
-	char				letters[MAX_CHAR - MIN_CHAR + 1];
+	int				letters[MAX_CHAR - MIN_CHAR + 1];
 	struct s_chain_tab	*nexts[MAX_CHAR - MIN_CHAR + 1];
 	char				*value;
 }						t_chain_tab;

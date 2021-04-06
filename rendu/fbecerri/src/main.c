@@ -44,6 +44,5 @@ int     main(void) {
     io_flush(&w);
     free(r);
     free(table);
-    printf("time = %d\n", test);
     return (0);
 }

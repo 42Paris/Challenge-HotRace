@@ -13,12 +13,6 @@
 #ifndef HOTRACE_H
 # define HOTRACE_H
 
-# ifdef BONUS
-#  define BONUS 1
-# else
-#  define BONUS 0
-# endif
-
 # include "../libft/includes/libft.h"
 # include <unistd.h>
 # include <stdlib.h>
@@ -27,11 +21,24 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+# define MAX_CHAR 126
+# define MIN_CHAR 32
+
 typedef struct	s_dict
 {
 	t_dlist		*key;
 	t_dlist		*values;
+	int			size;
 }				t_dict;
+
+
+typedef struct	s_chain_tab
+{
+	char		letters[MAX_CHAR - MIN_CHAR + 1];
+	t_chain_tab	*nexts[MAX_CHAR - MIN_CHAR + 1];
+	char		*value
+}				t_chain_tab;
+
 
 /*
 ** find_median

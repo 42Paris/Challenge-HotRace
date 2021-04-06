@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 10:58:00 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 11:07:44 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,12 @@
 # define SHORT		1
 # define LONG		2
 
-typedef struct  s_string {
-	size_t  len;
-	char	*buffer;
-}				t_string;
+typedef struct	s_data
+{
+	char	*key;
+	char	*value;
+	size_t	length_key;
+}			t_data;
 
 typedef struct	s_dict
 {

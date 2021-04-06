@@ -6,12 +6,14 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <string.h>
+# include <time.h>
 # include "ft_string.h"
 
 typedef struct	    s_entry
 {
+	bool			fill;
 	t_string		key;
-	uint64_t	    hash;
+	uint32_t	    hash;
 	t_string		data;
 }				    t_entry;
 
@@ -21,19 +23,46 @@ typedef struct	    s_hashtable
 	t_entry		    bucket[];
 }				    t_hashtable;
 
-static uint64_t	hash(t_string str)
-{
-	uint64_t    value;
-    size_t      i;
+extern int test;
 
-    i = 0;
-	value = 456;
-	while (i < str.len)
-	{
-		value = value * 31 + str.buffer[i];
-		i++;
-	}
-	return (value);
+
+static inline uint32_t murmur_32_scramble(uint32_t k) {
+    k *= 0xcc9e2d51;
+    k = (k << 15) | (k >> 17);
+    k *= 0x1b873593;
+    return k;
+}
+
+uint32_t murmur3_32(t_string str)
+{
+	const uint8_t* key = str.buffer;
+	size_t len = str.len;
+	uint32_t h = 42;
+    uint32_t k;
+    for (size_t i = len >> 2; i; i--) {
+        memcpy(&k, key, sizeof(uint32_t));
+        key += sizeof(uint32_t);
+        h ^= murmur_32_scramble(k);
+        h = (h << 13) | (h >> 19);
+        h = h * 5 + 0xe6546b64;
+    }
+    k = 0;
+    for (size_t i = len & 3; i; i--) {
+        k <<= 8;
+        k |= key[i - 1];
+    }
+    h ^= murmur_32_scramble(k);
+	h ^= len;
+	h ^= h >> 16;
+	h *= 0x85ebca6b;
+	h ^= h >> 13;
+	h *= 0xc2b2ae35;
+	h ^= h >> 16;
+	return h;
+}
+
+static uint32_t		hash(t_string str) {
+	return (murmur3_32(str));
 }
 
 t_hashtable		*create_hashtable(size_t size)
@@ -47,6 +76,7 @@ t_hashtable		*create_hashtable(size_t size)
 	while (i < size)
 	{
 		hash->bucket[i].key.buffer = NULL;
+		hash->bucket[i].fill = false;
 		i++;
 	}
 	hash->size = size;
@@ -57,7 +87,8 @@ t_entry			create_entry(t_string key)
 {
 	return ((t_entry) {
 		.key = key,
-		.hash = hash(key)
+		.hash = hash(key),
+		.fill = true
 	});
 }
 
@@ -93,7 +124,7 @@ t_entry			*insert_hashtable(t_hashtable **table, t_entry entry)
 	j = 0;
 	i = entry.hash % (*table)->size;
 	while (curr[i % (*table)->size].key.buffer != NULL
-		&& j < (*table)->size / 16)
+		&& j < 64)
 	{
 		if (entry.hash == curr[i % (*table)->size].hash)
 			if (ft_strcmp(entry.key, curr[i % (*table)->size].key) == true)
@@ -101,7 +132,7 @@ t_entry			*insert_hashtable(t_hashtable **table, t_entry entry)
 		i++;
 		j++;
 	}
-	if (j == (*table)->size / 16)
+	if (j == 64)
 	{
 		if (!grow_hashtable(table))
 			return (NULL);
@@ -113,7 +144,7 @@ t_entry			*insert_hashtable(t_hashtable **table, t_entry entry)
 
 t_entry			*hashtable_get(t_hashtable *table, t_string name)
 {
-	uint64_t		hash_name;
+	uint32_t		hash_name;
 	size_t			i;
 	size_t			j;
 	t_entry *const	curr = table->bucket;
@@ -121,8 +152,8 @@ t_entry			*hashtable_get(t_hashtable *table, t_string name)
 	hash_name = hash(name);
 	i = hash_name % table->size;
 	j = 0;
-	while (j < table->size
-		&& curr[i % table->size].key.buffer
+	while (j < 64
+		&& curr[i % table->size].fill
 		&& (curr[i % table->size].hash != hash_name
 			|| ft_strcmp(curr[i % table->size].key, name) == false))
 	{
@@ -136,7 +167,7 @@ t_entry			*hashtable_get(t_hashtable *table, t_string name)
 }
 
 void		hashtable_delete(t_hashtable *table, t_string name) {
-	uint64_t		hash_name;
+	uint32_t		hash_name;
 	size_t			i;
 	size_t			j;
 	t_entry *const	curr = table->bucket;
@@ -144,8 +175,8 @@ void		hashtable_delete(t_hashtable *table, t_string name) {
 	hash_name = hash(name);
 	i = hash_name % table->size;
 	j = 0;
-	while (j < table->size
-		&& curr[i % table->size].key.buffer
+	while (j < 64
+		&& curr[i % table->size].fill
 		&& (curr[i % table->size].hash != hash_name
 			|| ft_strcmp(curr[i % table->size].key, name) == false))
 	{
@@ -153,15 +184,7 @@ void		hashtable_delete(t_hashtable *table, t_string name) {
 		j++;
 	}
 	if (curr[i % table->size].key.buffer && j < table->size) {
-		j = 0;
-		while (j < table->size && curr[i % table->size].key.buffer) {
-			curr[i % table->size].key.buffer = curr[(i + 1) % table->size].key.buffer;
-			curr[i % table->size].hash = curr[(i + 1) % table->size].hash;
-			curr[i % table->size].data = curr[(i + 1) % table->size].data;
-			i++;
-			j++;
-		}
-		
+		curr[i % table->size].key.buffer = NULL;			
 	}
 }
 

@@ -42,6 +42,8 @@ bool    ft_strcmp(t_string s1, t_string s2) {
     size_t i;
 
     i = 0;
+    if (!s1.buffer || !s2.buffer)
+        return (false);
     if (s1.len != s2.len) {
         return (false);
     }

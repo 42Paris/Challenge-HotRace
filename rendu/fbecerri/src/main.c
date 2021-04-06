@@ -4,6 +4,8 @@
 #include "io_read.h"
 #include "io_write.h"
 
+int     test = 0;
+
 int     main(void) {
     t_io_read   *r;
     t_string    s1;
@@ -13,6 +15,7 @@ int     main(void) {
     int         i = 0;
     t_write     w;
 
+    test = 0;
     w.index = 0;
     w.nb_write = 0;
     r = init_reader(4096, 0);
@@ -41,5 +44,6 @@ int     main(void) {
     io_flush(&w);
     free(r);
     free(table);
+    printf("time = %d\n", test);
     return (0);
 }

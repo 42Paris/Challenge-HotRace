@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 06:15:32 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 06:16:21 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 typedef struct	s_dict
 {
-	t_dlist		*key;
+	t_dlist		*keys;
 	t_dlist		*values;
 	int			size;
 }				t_dict;

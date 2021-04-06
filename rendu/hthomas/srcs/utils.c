@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:00:24 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 06:15:21 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 06:16:56 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	error(char *str, t_dlist *a, t_dict *ab, t_sp *norm)
 			ft_dlstclear(&ab->keys, ab->keys, free);
 		if (ab->values)
 			ft_dlstclear(&ab->values, ab->values, free);
-		if (ab->oper)
-			ft_dlstclear(&ab->oper, ab->oper, free);
 		free(ab);
 	}
 	if (norm)

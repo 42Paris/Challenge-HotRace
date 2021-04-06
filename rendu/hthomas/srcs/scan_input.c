@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 13:13:23 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 06:15:09 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 06:16:10 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	scan_input2(t_dlist **a, char const *argv[], int *i)
 		error_a_b("Int overflow", *a, NULL, NULL);
 	while (argv[*i][j])
 	{
-		if (BONUS && argv[*i][j] == 'v' && !argv[*i][j + 1])
+		if (argv[*i][j] == 'v' && !argv[*i][j + 1])
 		{
 			(*i)++;
 			return ;
@@ -93,11 +93,7 @@ t_dlist	*scan_input(int argc, char const *argv[], int *print)
 
 	a = NULL;
 	if (print)
-	{
 		*print = 0;
-		if (BONUS)
-			scan_if_print(argc, argv, print);
-	}
 	i = 1;
 	while (i < argc)
 		scan_input2(&a, argv, &i);

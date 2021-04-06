@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 07:15:09 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 08:54:39 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-# define MAX_CHAR 126
-# define MIN_CHAR 32
+# define MAX_CHAR	126
+# define MIN_CHAR	32
+
+# define SHORT		1
+# define LONG		2
 
 typedef struct	s_dict
 {

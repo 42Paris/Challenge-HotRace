@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 21:59:32 by aldubar           #+#    #+#             */
-/*   Updated: 2021/04/06 00:06:06 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/04/06 10:26:29 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static void	search(t_elem *dico, char *line)
 	{
 		if (ft_strcmp(line, dico->key) == 0)
 		{
-			ft_putstr(dico->key);
-			ft_putstr(": ");
 			ft_putstr(dico->value);
 			ft_putchar('\n');
 			res++;

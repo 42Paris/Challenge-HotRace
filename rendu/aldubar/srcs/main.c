@@ -6,7 +6,7 @@
 /*   By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:27:38 by aldubar           #+#    #+#             */
-/*   Updated: 2021/04/06 00:07:23 by aldubar          ###   ########.fr       */
+/*   Updated: 2021/04/06 10:25:00 by aldubar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,6 @@ static void	parse(t_elem **dico, char *line)
 		search_or_add(dico, line);
 }
 
-static void	print_dico(t_elem *dico)
-{
-	while (dico)
-	{
-		ft_putstr(dico->key);
-		ft_putstr(": ");
-		ft_putstr(dico->value);
-		ft_putchar('\n');
-		dico = dico->next;
-	}
-}
-
 int			main(void)
 {
 	char	*line;
@@ -72,7 +60,6 @@ int			main(void)
 	}
 	if (line)
 		free(line);
-	print_dico(dico);
 	close(fd);
 	clear_dico(dico);
 	return (0);

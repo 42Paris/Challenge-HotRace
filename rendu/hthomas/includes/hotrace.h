@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 16:31:37 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 17:11:15 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 # include <stdio.h>
 # include <stdbool.h>
 
-# define SIZE_DATABASE	50000
-# define PRIME_1		456
-# define PRIME_2		31
+# define SIZE_DATABASE	5000000
+# define PRIME_1		619
+# define PRIME_2		43
 
 # define MAX_CHAR	126
 # define MIN_CHAR	32
@@ -42,8 +42,8 @@ typedef struct	s_data
 
 typedef struct	s_dict
 {
-	t_list		*keys;
-	t_list		*values;
+	t_dlist		*keys;
+	t_dlist		*values;
 	size_t		size;
 }				t_dict;
 
@@ -58,7 +58,7 @@ typedef struct			s_chain_tab
 /*
 ** print
 */
-void			print_clean_dlist(t_list *output);
+void			print_clean_dlist(t_dlist *output);
 
 /*
 ** utils

@@ -32,12 +32,12 @@ typedef struct	s_dict
 }				t_dict;
 
 
-typedef struct	s_chain_tab
+typedef struct			s_chain_tab
 {
-	char		letters[MAX_CHAR - MIN_CHAR + 1];
-	t_chain_tab	*nexts[MAX_CHAR - MIN_CHAR + 1];
-	char		*value
-}				t_chain_tab;
+	char				letters[MAX_CHAR - MIN_CHAR + 1];
+	struct s_chain_tab	*nexts[MAX_CHAR - MIN_CHAR + 1];
+	char				*value;
+}						t_chain_tab;
 
 
 /*

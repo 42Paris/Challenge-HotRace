@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 08:54:39 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 10:42:45 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,20 @@
 # define SHORT		1
 # define LONG		2
 
+typedef struct  s_string {
+	size_t  len;
+	char	*buffer;
+}				t_string;
+
 typedef struct	s_dict
 {
-	t_dlist		*keys;
-	t_dlist		*values;
-	int			size;
+	t_dlist		data[];
 }				t_dict;
 
 
 typedef struct			s_chain_tab
 {
-	int				letters[MAX_CHAR - MIN_CHAR + 1];
+	size_t				letters[MAX_CHAR - MIN_CHAR + 1];
 	struct s_chain_tab	*nexts[MAX_CHAR - MIN_CHAR + 1];
 	char				*value;
 }						t_chain_tab;

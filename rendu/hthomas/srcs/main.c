@@ -6,11 +6,26 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 09:00:46 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 10:10:48 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
+
+static uint64_t	hash(t_string str)
+{
+	uint64_t    value;
+    size_t      i;
+
+    i = 0;
+	value = 456;
+	while (i < str.len)
+	{
+		value = value * 31 + str.buffer[i];
+		i++;
+	}
+	return (value);
+}
 
 int	in_charset(char const c, char const *charset, int *pos)
 {

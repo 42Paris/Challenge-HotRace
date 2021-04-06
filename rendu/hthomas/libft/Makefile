@@ -6,7 +6,7 @@
 #    By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 11:49:24 by hthomas           #+#    #+#              #
-#    Updated: 2021/04/06 16:32:37 by hthomas          ###   ########.fr        #
+#    Updated: 2021/04/06 20:59:55 by hthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJS		=	$(SRCS:.c=.o)
 INCLUDES	=	includes
 HEADER		=	$(INCLUDES)/libft.h
 CC			=	gcc
-CFLAGS		=	-Ofast #-Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS		=	-O3 #-Wall -Wextra -Werror #-g3 -fsanitize=address
 
 # io
 SRCS		=	srcs/io/ft_print_tabint.c					\

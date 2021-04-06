@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 18:06:43 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 18:12:55 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	remove_from_table(t_dlist ***table, char *key)
 		if (!ft_strcmp(key, data->key))
 		{
 			// printf("delete\n");
-			free(ft_dlstremove_one((*table), (*table)[h]));
+			free(ft_dlstremove_one(&((*table)[h]), (*table)[h]));
 			return ;
 		}
 		tmp = (*table)[h]->next;
@@ -137,7 +137,7 @@ void	remove_from_table(t_dlist ***table, char *key)
 			data = get_data(tmp);
 			if (!ft_strcmp(key, data->key))
 			{
-				free(ft_dlstremove_one((*table), tmp));
+				free(ft_dlstremove_one(&((*table)[h]), tmp));
 				return ;
 			}
 			tmp = tmp->next;

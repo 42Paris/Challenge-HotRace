@@ -6,13 +6,24 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 06:14:57 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/06 06:57:10 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
 
-void	print_value(t_dict *dict, char *key)
+int	in_charset(char const c, char const *charset, int *pos)
+{
+	*pos = 0;
+	while (charset[*pos])
+	{
+		if (c == charset[*pos++])
+			return (1);
+	}
+	return (0);
+}
+
+char	*find_value(t_dict *dict, char *key)
 {
 
 }
@@ -22,9 +33,16 @@ void	add_to_dict(t_dict *dict, char *key, char *value)
 
 }
 
-int is_entry(t_dict *dict, char *line, char **key, char **value)
+int is_entry(char *line, char **key, char **value)
 {
-	return (1);
+	int	pos;
+	int	ret;
+
+	ret = in_charset('=', line, &pos);
+	line[pos] = '\0';
+	*key = line;
+	*value = &line[pos + 1];
+	return (ret);
 }
 
 int is_in_dict(t_dict *dict, char *key)
@@ -38,17 +56,19 @@ void	main2(t_dlist **a, t_dlist **b)
 	char	*key;
 	char	*value;
 	t_dict	*dict;
+	t_dlist	*output;
 
 	dict = NULL;
+	output = NULL;
 	while (get_next_line(&line, 0))
 	{
-		if (is_entry(dict, line, &key, &value) && !is_in_dict(dict, key))
+		if (is_entry(line, &key, &value) && !is_in_dict(dict, key))
 			add_to_dict(dict, key, value);
 		else
-			print_value(dict, key);
-		free(key);
-		free(value);
-		free(line);
+			ft_dlstadd_back(&output, ft_dlstnew(find_value(dict, key)));
+		// free(key);
+		// free(value);
+		// free(line);
 	}
 	free(line);
 	ft_dlstclear(b, *b, free);

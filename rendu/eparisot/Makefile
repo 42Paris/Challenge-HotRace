@@ -20,7 +20,7 @@ INC		=	includes/hotrace.h
 OBJS	=	$(SRCS:.c=.o)
 LIBS	=	libft/libft.a \
 
-CFLAGS	=	-Wall -Wextra -Werror -O3
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 RM		=	rm -f
 

@@ -51,6 +51,7 @@ test: $(NAME)
 	cat ../../ressources/generated-1 | ./$< > myoutput1.txt
 
 test_time: $(NAME)
-	cat ../../ressources/generated-1 | time ./$<;
+	./test.sh
+
 
 .PHONY: re clean fclean test time

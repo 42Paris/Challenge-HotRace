@@ -6,7 +6,7 @@
 #    By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 15:05:09 by hthomas           #+#    #+#              #
-#    Updated: 2021/04/07 22:08:16 by hthomas          ###   ########.fr        #
+#    Updated: 2021/04/07 22:25:20 by hthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	hotrace
 
 CC			=	gcc
 CFLAGS		=	-O3 #-Wall -Werror -Wextra
-LDFLAGS		=	-g3 -fsanitize=address #-fsanitize=leak
+LDFLAGS		=	#-g3 -fsanitize=address #-fsanitize=leak
 
 OBJS		=	$(SRCS:.c=.o)
 INCL		=	includes/

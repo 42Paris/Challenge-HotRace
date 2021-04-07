@@ -12,36 +12,6 @@
 
 #include "../includes/hotrace.h"
 
-void init_env() {
-	if ((g_env = malloc(sizeof(t_env))) == NULL) {
-		exit(0);
-	}
-	g_env->buf = NULL;
-	g_env->index_table = NULL;
-	g_env->data_table = NULL;
-	if ((g_env->buf = malloc(sizeof(char*))) == NULL) {
-		free(g_env);
-		exit(0);
-	}
-	if ((g_env->index_table = ft_lstnew(NULL, sizeof(t_index_slot))) == NULL) {
-		cleanup();
-		exit(0);
-	}
-		if ((g_env->data_table = ft_lstnew(NULL, sizeof(t_data_slot))) == NULL) {
-		cleanup();
-		exit(0);
-	}
-}
-
-unsigned long calc_hash(unsigned char *str) {
-    unsigned long hash = 5381;
-    int c;
-
-    while ((c = *str++))
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-    return hash;
-}
-
 int add_entry(char *l_member, char *r_member, unsigned long hash) {
 	t_data_slot new_data_slot;
 	t_index_slot new_index_slot;
@@ -66,15 +36,11 @@ int add_entry(char *l_member, char *r_member, unsigned long hash) {
 			// if smaller than the smallest data
 			if ((index_idx == 0 && hash < ((t_index_slot*)tmp_index_lst->content)->start_hash)) {
 				ft_lstadd(&g_env->data_table, new_data_node);
-				//printf("smaller than the smallest data\n");
-				//printf("smaller than the smallest index\n");
 				if (((t_index_slot*)tmp_index_lst->content)->nb_nodes < CHUNK_SIZE) {
-					//printf("enought space in indexes\n");
 					((t_index_slot*)tmp_index_lst->content)->start_addr = new_data_node;
 					((t_index_slot*)tmp_index_lst->content)->start_hash = hash;
 					((t_index_slot*)tmp_index_lst->content)->nb_nodes++;
 				} else {
-					//printf("not enought space in indexes\n");
 					new_index_slot.start_hash = hash;
 					new_index_slot.start_addr = new_data_node;
 					new_index_slot.nb_nodes = 1;
@@ -110,7 +76,6 @@ int add_entry(char *l_member, char *r_member, unsigned long hash) {
 						tmp_data_lst->next = new_data_node;
 						// if enought place in indexes
 						if (((t_index_slot*)tmp_index_lst->content)->nb_nodes < CHUNK_SIZE) {
-							//printf("enought space in indexes\n");
 							if (((t_index_slot*)tmp_index_lst->content)->start_hash > hash) {
 								((t_index_slot*)tmp_index_lst->content)->start_hash = hash;
 								((t_index_slot*)tmp_index_lst->content)->start_addr = new_data_node;
@@ -118,7 +83,6 @@ int add_entry(char *l_member, char *r_member, unsigned long hash) {
 							((t_index_slot*)tmp_index_lst->content)->nb_nodes++;
 						// if not enought place in indexes
 						} else {
-							//printf("not enought space in indexes\n");
 							new_index_slot.start_hash = hash;
 							new_index_slot.start_addr = new_data_node;
 							int remaining = 0;
@@ -139,7 +103,6 @@ int add_entry(char *l_member, char *r_member, unsigned long hash) {
 					}
 					tmp_data_lst = tmp_data_lst->next;
 				}
-				//printf("in range data\n");
 				break;
 			}
 			tmp_index_lst = tmp_index_lst->next;
@@ -147,8 +110,6 @@ int add_entry(char *l_member, char *r_member, unsigned long hash) {
 		}
 	} else {
 		ft_lstadd(&g_env->data_table, new_data_node);
-		//printf("first data\n");
-		//printf("first index\n");
 		new_index_slot.start_hash = hash;
 		new_index_slot.start_addr = new_data_node;
 		new_index_slot.nb_nodes = 1;
@@ -201,83 +162,6 @@ void del_entry(unsigned long hash) {
 		}
 		tmp_index_lst = tmp_index_lst->next;
 	}
-
-	/*t_list *tmp_data_lst = g_env->data_table;
-	t_list *tmp_index_lst = g_env->index_table;
-	t_list *prev_data_lst = NULL;
-	t_list *prev_index_lst = NULL;
-
-	while (tmp_index_lst->next) {
-		if (hash >= ((t_index_slot*)tmp_index_lst->content)->start_hash && (tmp_index_lst->next->content == NULL || hash < ((t_index_slot*)tmp_index_lst->next->content)->start_hash)) {
-			tmp_data_lst = (t_list*)((t_index_slot*)tmp_index_lst->content)->start_addr;
-			while (tmp_data_lst->next) {
-				if (hash == ((t_data_slot*)tmp_data_lst->content)->hash) {
-					// if element to del is first of index
-					if (tmp_data_lst == ((t_index_slot*)tmp_index_lst->content)->start_addr) {
-						
-						// if it was alone, remove that node
-						if (((t_index_slot*)tmp_index_lst->content)->nb_nodes == 1) {
-							//printf("alone index\n");
-							// if there is a previous index node
-							if (prev_index_lst) {
-								prev_index_lst->next = tmp_index_lst->next;
-								ft_lstdelone(&tmp_index_lst, del);
-								tmp_index_lst = prev_index_lst->next;
-								//printf("prev index\n");
-							} else {
-								g_env->index_table = tmp_index_lst->next;
-								ft_lstdelone(&tmp_index_lst, del);
-								//printf("no prev index\n");
-							}
-			
-						// else update node's start_addr
-						} else {
-							//printf("not alone index\n");
-							((t_index_slot*)tmp_index_lst->content)->start_addr = tmp_data_lst->next;
-							((t_index_slot*)tmp_index_lst->content)->start_hash = ((t_data_slot*)tmp_data_lst->next->content)->hash;
-						}
-					}
-					
-					// if there is a previous data node
-					if (prev_data_lst) {
-						prev_data_lst->next = tmp_data_lst->next;
-						ft_lstdelone(&tmp_data_lst, del_data);
-						tmp_data_lst = prev_data_lst->next;
-						//printf("prev data\n");
-					} else {
-						t_list *tmp = tmp_data_lst->next;
-						ft_lstdelone(&tmp_data_lst, del_data);
-						g_env->data_table = tmp;
-						tmp_data_lst = tmp;
-						//printf("no prev data\n");
-					}
-					if (tmp_index_lst && tmp_index_lst->content)
-						((t_index_slot*)tmp_index_lst->content)->nb_nodes--;
-					break;
-				}
-				prev_data_lst = tmp_data_lst;
-				tmp_data_lst = tmp_data_lst->next;
-			}
-			break;
-		}
-		prev_index_lst = tmp_index_lst;
-		tmp_index_lst = tmp_index_lst->next;
-	}*/
-}
-
-void debug() {
-	t_list *tmp_data_lst = g_env->data_table;
-	t_list *tmp_index_lst = g_env->index_table;
-
-	while (tmp_index_lst->next) {
-		printf("%p - %ld - %d\n", ((t_index_slot*)tmp_index_lst->content)->start_addr, ((t_index_slot*)tmp_index_lst->content)->start_hash, ((t_index_slot*)tmp_index_lst->content)->nb_nodes);
-		while (tmp_data_lst->next) {
-			printf("\t%p: %s - %s - %ld\n", tmp_data_lst, ((t_data_slot*)tmp_data_lst->content)->key, ((t_data_slot*)tmp_data_lst->content)->val, ((t_data_slot*)tmp_data_lst->content)->hash);
-			tmp_data_lst = tmp_data_lst->next;
-		}
-		tmp_index_lst = tmp_index_lst->next;
-	}
-	printf("---------------\n\n");
 }
 
 int handle_input(char *str) {
@@ -328,8 +212,6 @@ int handle_input(char *str) {
 		l_member++;
 		del_entry(hash);
 	}
-	if (DEBUG) printf("%s / %s / %s = %ld\n", str, l_member, r_member, hash);
-	if (DEBUG) debug();
 	if (in)
 		free(l_member);
 	return 0;

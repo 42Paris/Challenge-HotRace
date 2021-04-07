@@ -20,6 +20,36 @@ void sig_handler(int signum) {
 	}
 }
 
+void init_env() {
+	if ((g_env = malloc(sizeof(t_env))) == NULL) {
+		exit(0);
+	}
+	g_env->buf = NULL;
+	g_env->index_table = NULL;
+	g_env->data_table = NULL;
+	if ((g_env->buf = malloc(sizeof(char*))) == NULL) {
+		free(g_env);
+		exit(0);
+	}
+	if ((g_env->index_table = ft_lstnew(NULL, sizeof(t_index_slot))) == NULL) {
+		cleanup();
+		exit(0);
+	}
+		if ((g_env->data_table = ft_lstnew(NULL, sizeof(t_data_slot))) == NULL) {
+		cleanup();
+		exit(0);
+	}
+}
+
+unsigned long calc_hash(unsigned char *str) {
+    unsigned long hash = 5381;
+    int c;
+
+    while ((c = *str++))
+        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+    return hash;
+}
+
 void del_data(void *addr, size_t size)
 {
 	(void)size;

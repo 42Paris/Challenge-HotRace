@@ -20,7 +20,6 @@
 #include <unistd.h>
 #include "../libft/libft.h"
 
-# define DEBUG 0
 # define CHUNK_SIZE 512
 
 typedef struct			s_env
@@ -48,6 +47,8 @@ typedef struct 			s_data_slot
 t_env *g_env;
 
 void sig_handler(int signum);
+void init_env(void);
+unsigned long calc_hash(unsigned char *str);
 void del(void *addr, size_t size);
 void del_data(void *addr, size_t size);
 void cleanup(void);

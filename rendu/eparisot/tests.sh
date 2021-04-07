@@ -8,3 +8,5 @@ for F in ../../ressources/*; do
 	( python3 compare.py < $F ) > $fileb;
 	diff $filea $fileb;
 done
+
+rm generated*

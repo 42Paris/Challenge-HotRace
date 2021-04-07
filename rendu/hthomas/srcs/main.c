@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 17:34:32 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 17:47:10 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,9 +166,15 @@ int		main(int argc, char const *argv[])
 			// output = strjoin_free(output, data->value);
 			// ft_lstadd_back(&outputs, ft_lstnew(output));
 			// free(data->value);
+			free(data);
+			free(line);
 		}
 		else if (type == DELETE)
+		{
 			remove_from_table(&table, data->key);
+			free(data);
+			free(line);
+		}
 		else
 		{
 			free(data);

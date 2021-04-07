@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:03:01 by atruphem          #+#    #+#             */
-/*   Updated: 2021/04/07 15:03:03 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/04/07 22:17:45 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ typedef struct			s_rb_node
 	struct	s_rb_node	*right;
 	char			*keyword;
 	char			*value;
+	int			enable;
 	enum	e_rb_color	color;
 }				t_rb_node;
 
 int		ft_strcmp(char *s1, char *s2);
 size_t		ft_strlen(const char *s);
-t_rb_node	*rb_delete(t_rb_node **node, t_rb_node **root);
 t_rb_node	*rb_search(t_rb_node *root, char *keyword, int (*cmpf)(char *, char *));
 int		rb_insert(t_rb_node **root, char *keyword, char *value,  int (*cmpf)(char *, char *));
 void		right_rotation(t_rb_node *node);

@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:02:51 by atruphem          #+#    #+#             */
-/*   Updated: 2021/04/07 15:02:53 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/04/07 22:14:30 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_rb_node	*rb_create_node(char *keyword, char *value)
 	node->keyword = keyword;
 	node->value  = value;
 	node->color = RB_RED;
+	node->enable = 1;
 	return (node);
 }
 
@@ -115,6 +116,7 @@ int	rb_insert(t_rb_node **root, char *keyword, char *value,  int (*cmpf)(char *,
 		}		
 		else if (cmpf(tmp_node->keyword, keyword) == 0)
 		{
+			tmp_node->enable = 1;
 			return (0);
 		}
 		else if (cmpf(tmp_node->keyword, keyword) > 0)

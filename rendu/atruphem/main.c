@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:02:30 by atruphem          #+#    #+#             */
-/*   Updated: 2021/04/07 15:02:36 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/04/07 22:14:46 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void handler(char *line, t_rb_node **root)
 	char		*clean;
 	char		*value;
 	t_rb_node	*node;
-	t_rb_node	*node2;
 	int		index;
 
 	if (!(clean = malloc(sizeof(char) * (ft_strlen(line) + 1))))
@@ -48,12 +47,7 @@ static void handler(char *line, t_rb_node **root)
 		ft_strlcpy(clean, line + 1, ft_strlen(line));
 		if ((node = rb_search(*root, clean, &ft_strcmp)))
 		{	
-			free(node->keyword);
-			free(node->value);
-			node2 = rb_delete(&node, root);
-			while (node2)
-				node2 = rb_delete(&node2, root);
-			root_check(root);
+			node->enable = 0;
 		}
 		free(clean);
 		free(value);
@@ -72,7 +66,7 @@ static void handler(char *line, t_rb_node **root)
 			root_check(root);
 		return;
 	}
-	if ((node = rb_search(*root, line, &ft_strcmp)))
+	if ((node = rb_search(*root, line, &ft_strcmp)) && (node->enable == 1))
 	{
 		ft_putstr_fd(node->value, 1);
 		ft_putchar_fd('\n',1);
@@ -86,7 +80,6 @@ static void handler(char *line, t_rb_node **root)
 	free(value);
 	return;
 }
-
 
 int main()
 {

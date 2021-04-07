@@ -6,16 +6,11 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:00:24 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 22:16:42 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 22:54:16 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
-
-char	*get_str(t_list *outputs)
-{
-	return ((char *)(outputs->content));
-}
 
 int	contains_equal(char const c, char const *charset, size_t *pos)
 {

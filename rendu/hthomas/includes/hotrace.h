@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 19:23:05 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 22:54:04 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct	s_data
 	char	*value;
 }			t_data;
 
-void	print_clean_list(t_list *output);
 int		contains_equal(char const c, char const *charset, size_t *pos);
 void	free_data(void *content);
 void	set_data(t_data **data, char *line, size_t length_key);

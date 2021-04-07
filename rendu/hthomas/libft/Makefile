@@ -6,7 +6,7 @@
 #    By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 11:49:24 by hthomas           #+#    #+#              #
-#    Updated: 2021/04/07 22:27:18 by hthomas          ###   ########.fr        #
+#    Updated: 2021/04/07 22:39:59 by hthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJS		=	$(SRCS:.c=.o)
 INCLUDES	=	includes
 HEADER		=	$(INCLUDES)/libft.h
 CC			=	gcc
-CFLAGS		=	-O3 -Wall -Wextra -Werror
+CFLAGS		=	-Ofast #-Wall -Wextra -Werror
 
 # linked-list
 SRCS		=	srcs/linked-list/ft_lstnew.c				\

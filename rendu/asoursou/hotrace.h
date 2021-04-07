@@ -6,7 +6,7 @@
 /*   By: asoursou <asoursou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 16:46:04 by asoursou          #+#    #+#             */
-/*   Updated: 2021/04/07 19:59:37 by asoursou         ###   ########.fr       */
+/*   Updated: 2021/04/08 00:55:28 by asoursou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stddef.h>
 
 #define GLINE_INIT_BUFSIZE	1024
-#define HASH_TABLE_POWER	17
+#define HASH_TABLE_POWER	19
 #define HASH_TABLE_SIZE		(1 << HASH_TABLE_POWER)
 #define HASH_TABLE_MASK		(HASH_TABLE_SIZE - 1)
 

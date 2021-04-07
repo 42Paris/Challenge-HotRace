@@ -6,7 +6,7 @@
 #    By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 15:05:09 by hthomas           #+#    #+#              #
-#    Updated: 2021/04/06 20:59:59 by hthomas          ###   ########.fr        #
+#    Updated: 2021/04/07 13:09:52 by hthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	hotrace
 
 CC			=	gcc
 CFLAGS		=	-O3 #-Wall -Werror -Wextra
-LDFLAGS		=	#-g3 -fsanitize=address -fsanitize=leak
+LDFLAGS		=	#-g3 -fsanitize=address #-fsanitize=leak
 
 OBJS		=	$(SRCS:.c=.o)
 INCL		=	includes/
@@ -25,7 +25,6 @@ LIBFTDIR	=	libft/
 LIBFTLINK	=	-L $(LIBFTDIR) -lft
 
 SRCS		=	srcs/main.c					\
-				srcs/print.c				\
 				srcs/utils.c
 
 ########################### EXEC

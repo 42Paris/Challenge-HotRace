@@ -6,7 +6,7 @@
 #    By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/04 11:49:24 by hthomas           #+#    #+#              #
-#    Updated: 2021/04/06 20:59:55 by hthomas          ###   ########.fr        #
+#    Updated: 2021/04/07 13:01:00 by hthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS		=	srcs/io/ft_print_tabint.c					\
 SRCS		+=	srcs/linked-list/ft_lstnew.c				\
 				srcs/linked-list/ft_lstadd_front.c			\
 				srcs/linked-list/ft_lstsize.c				\
+				srcs/linked-list/ft_lstremove_one.c			\
 				srcs/linked-list/ft_lstlast.c				\
 				srcs/linked-list/ft_lstadd_back.c			\
 				srcs/linked-list/ft_lstdelone.c				\
@@ -130,22 +131,6 @@ SRCS		+=	srcs/string/ft_in_charset.c					\
 SRCS		+=	srcs/tabs/sort_int.c						\
 				srcs/tabs/sort_str.c						\
 
-# ft_printf
-SRCS 		+= 	srcs/ft_printf/ft_printf.c					\
-				srcs/ft_printf/ft_s_printf_utils.c			\
-				srcs/ft_printf/ft_char.c					\
-				srcs/ft_printf/ft_hex.c						\
-				srcs/ft_printf/ft_integer.c					\
-				srcs/ft_printf/ft_integer2.c				\
-				srcs/ft_printf/ft_integer3.c				\
-				srcs/ft_printf/ft_pointer.c					\
-				srcs/ft_printf/ft_string.c					\
-				srcs/ft_printf/ft_unsigned_int.c			\
-				srcs/ft_printf/ft_percent.c					\
-				srcs/ft_printf/ft_width.c					\
-				srcs/ft_printf/ft_flags.c					\
-				srcs/ft_printf/ft_atoi_no_sign.c			\
-
 # get_next_line
 SRCS		+=	srcs/gnl/get_next_line.c
 
@@ -169,27 +154,3 @@ fclean:		clean
 re:			fclean all
 # .SILENT:
 
-###########################COLOR
-#----------------reset----------------#
-NC = \033[0m
-
-#-----------Regular Colors------------#
-BLACK = \033[0;30m
-RED = \033[0;31m
-GREEN = \033[32m
-YELLOW = \033[33;33m
-BLUE = \033[0;34m
-PURPLE = \033[35m
-CYAN = \033[1;36m
-WHITE = \033[0;37m
-
-###########################ECHO
-
-echoCL:
-	echo "$(YELLOW)Compiling Libft$(NC)"
-echoOK:
-	echo "$(GREEN) OK$(NC)"
-echoCS :
-	echo "$(GREEN)===> Compilation Success$(NC)"
-echoAR :
-	echo "$(CYAN)===> Archiving Libft$(NC)$(GREEN) OK$(NC)\n"

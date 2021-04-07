@@ -6,18 +6,18 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/06 21:42:29 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 13:08:39 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
 
-static uint64_t	hash(char *key, size_t size_database)
+static	unsigned int	hash(char *key, size_t size_database)
 {
-	uint64_t    h;
-    size_t      i;
+	unsigned int	h;
+	size_t			i;
 
-    i = 0;
+	i = 0;
 	h = PRIME_1;
 	size_t len = ft_strlen(key);
 	while (i < len)
@@ -28,7 +28,7 @@ static uint64_t	hash(char *key, size_t size_database)
 	return (h);
 }
 
-char type_entry(char *line, t_data *data)
+char	type_entry(char *line, t_data *data)
 {
 	data->key = line;
 	if (line[0] == '!')
@@ -38,7 +38,7 @@ char type_entry(char *line, t_data *data)
 		data->value = NULL;
 		return (DELETE);
 	}
-	if (in_charset('=', line, &(data->length_key)))
+	else if (in_charset('=', line, &(data->length_key)))
 	{
 		data->key[data->length_key] = '\0';
 		data->value = &line[data->length_key + 1];
@@ -48,23 +48,21 @@ char type_entry(char *line, t_data *data)
 	return (SEARCH);
 }
 
-t_data	*get_data(const t_dlist *table)
+t_data	*get_data(const t_list *table)
 {
 	return ((t_data *)(table->content));
 }
 
-bool	is_in_table(t_dlist **table, char *key)
+bool	is_in_table(t_list **table, char *key)
 {
-	t_dlist	*tmp;
-	t_dlist	*start;
+	t_list	*tmp;
+	t_list	*start;
 
 	start = table[hash(key, SIZE_DATABASE)];
 	if (start)
 	{
-		if (!ft_strcmp(key, get_data(start)->key))
-			return (true);
-		tmp = start->next;
-		while (tmp != start)
+		tmp = start;
+		while (tmp)
 		{
 			if (!ft_strcmp(key, get_data(tmp)->key))
 				return (true);
@@ -74,57 +72,46 @@ bool	is_in_table(t_dlist **table, char *key)
 	return (false);
 }
 
-void	add_to_table(t_dlist **table, t_data *data)
+void	add_to_table(t_list **table, t_data *data)
 {
-	ft_dlstadd_back(&(table[hash(data->key, SIZE_DATABASE)]), ft_dlstnew(data));
+	ft_lstadd_back(&(table[hash(data->key, SIZE_DATABASE)]), ft_lstnew(data));
 }
 
-char	*find_value(t_dlist **table, char *key)
+char	*find_value(t_list **table, char *key)
 {
-	t_dlist		*tmp;
-	t_dlist		*start;
-	uint64_t	h;
+	t_list		*tmp;
+	t_list		*start;
+	unsigned int	h;
 
 	h = hash(key, SIZE_DATABASE);
 	if (table[h])
 	{
-		t_data *data = get_data(table[h]);
-		if (!ft_strcmp(key, data->key))
-			return (data->value);
-		tmp = table[h]->next;
-		while (tmp != table[h])
+		tmp = table[h];
+		while (tmp)
 		{
-			data = get_data(tmp);
-			if (!ft_strcmp(key, data->key))
-				return (data->value);
+			if (!ft_strcmp(key, get_data(tmp)->key))
+				return (get_data(tmp)->value);
 			tmp = tmp->next;
 		}
 	}
 	return (ft_strdup("Not found"));
 }
 
-void	remove_from_table(t_dlist ***table, char *key)
+void	remove_from_table(t_list ***table, char *key)
 {
-	t_dlist		*tmp;
-	t_dlist		*start;
-	uint64_t	h;
+	t_list		*tmp;
+	t_list		*start;
+	int	h;
 
 	h = hash(key, SIZE_DATABASE);
 	if ((*table)[h])
 	{
-		t_data *data = get_data((*table)[h]);
-		if (!ft_strcmp(key, data->key))
+		tmp = (*table)[h];
+		while (tmp)
 		{
-			free(ft_dlstremove_one(&((*table)[h]), (*table)[h]));
-			return ;
-		}
-		tmp = (*table)[h]->next;
-		while (tmp != (*table)[h])
-		{
-			data = get_data(tmp);
-			if (!ft_strcmp(key, data->key))
+			if (!ft_strcmp(key, get_data(tmp)->key))
 			{
-				free(ft_dlstremove_one(&((*table)[h]), tmp));
+				free(ft_lstremove_one(&((*table)[h]), tmp));
 				return ;
 			}
 			tmp = tmp->next;
@@ -136,8 +123,8 @@ int		main(int argc, char const *argv[])
 {
 	char	*line;
 	t_data	*data;
-	t_dlist	**table;
-	t_dlist	*outputs;
+	t_list	**table;
+	t_list	*outputs;
 
 	if (argc != 1)
 		return (0);
@@ -159,7 +146,7 @@ int		main(int argc, char const *argv[])
 			data->value = find_value(table, data->key);
 			output = ft_strjoin(data->key, ": ");
 			output = ft_strjoin_free(output, data->value);
-			ft_dlstadd_back(&outputs, ft_dlstnew(output));
+			ft_lstadd_back(&outputs, ft_lstnew(output));
 		}
 		else if (type == DELETE)
 			remove_from_table(&table, data->key);
@@ -168,7 +155,7 @@ int		main(int argc, char const *argv[])
 		// free(key);
 		// free(value);
 	}
-	print_clean_dlist(outputs);
+	print_clean_list(outputs);
 	free(line);
 	return (0);
 }

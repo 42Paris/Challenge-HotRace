@@ -42,6 +42,7 @@ typedef struct 			s_data_slot
 	char 				*key;
 	char 				*val;
 	unsigned long		hash;
+	int					deleted;
 }						t_data_slot;
 
 t_env *g_env;

@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 20:26:05 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 22:13:07 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ void	find_value(t_list **table, char const *key)
 		{
 			if (!strcmp(key, get_data(tmp)->key))
 			{
-				printf("%s\n", get_data(tmp)->value);
+				// printf("%s\n", get_data(tmp)->value);
 				return ;
 			}
 			tmp = tmp->next;
 		}
 	}
-	printf("%s%s\n", key, ": Not found");
+	// printf("%s%s\n", key, ": Not found");
 }
 
 void	remove_from_table(t_list ***table, char *key)
@@ -104,7 +104,9 @@ void	remove_from_table(t_list ***table, char *key)
 		{
 			if (!strcmp(key, get_data(tmp)->key))
 			{
-				free(ft_lstremove_one(&((*table)[h]), tmp));
+				t_list *to_del = ft_lstremove_one(&((*table)[h]), tmp);
+				free_data(to_del->content);
+				free(to_del);
 				return ;
 			}
 			tmp = tmp->next;
@@ -121,6 +123,10 @@ int		main(int argc, char const *argv[])
 		return (0);
 	(void) argv;
 	table = malloc(sizeof(*table) * SIZE_DATABASE);
+	int	i = 0;
+	while (i < SIZE_DATABASE)
+		table[i++] = 0;
+	// printf("table: %p\n", table);
 	while (get_next_line(&line, 0))
 	{
 		size_t	length_key;
@@ -148,11 +154,14 @@ int		main(int argc, char const *argv[])
 	}
 	if (line)
 		free(line);
-	int	i = 0;
+	i = 0;
 	while (i < SIZE_DATABASE)
 	{
 		if (table[i])
+		{
+			// printf("table[i]: %p\n", table[i]);
 			ft_lstclear(&(table[i]), &free_data);
+		}
 		i++;
 	}
 	free(table);

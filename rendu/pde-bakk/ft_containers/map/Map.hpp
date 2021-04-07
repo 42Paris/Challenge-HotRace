@@ -73,7 +73,7 @@ class map : public MapBase<const Key, Value, ft::pair<const Key, Value>, Compare
 		}
 
 		mapped_type&		at(const key_type& k) {
-			iterator it =this->find(k);
+			iterator it = this->find(k);
 			if (it == Base::end())
 				throw std::out_of_range("map::at:  key not found");
 			return it->second;

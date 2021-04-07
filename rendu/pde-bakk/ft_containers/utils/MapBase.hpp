@@ -461,12 +461,17 @@ template < class Key, class Value, class NodeContents, class Compare = less<Key>
 							left_rotation(x->parent);
 							w = x->parent->right;
 						}
-						if (w->left->colour == BLACK && w->right->colour == BLACK) { // case 2
+//						if (w->left == NULL || w->right == NULL) {
+//							std::cerr << "w->left is " << w->left << ", w->right is " << w->right << std::endl;
+//							std::cerr << "w is " << w << std::endl;
+//							this->printBT();
+//						}
+						if (w->left && w->right && w->left->colour == BLACK && w->right->colour == BLACK) { // case 2
 							w->colour = RED;
 							x = x->parent;
 						}
 						else { // Case 3 or 4
-							if (w->right->colour == BLACK) { // Case 3
+							if (w->right->colour == BLACK && w->left) { // Case 3
 								w->left->colour = BLACK;
 								w->colour = RED;
 								right_rotation(w);

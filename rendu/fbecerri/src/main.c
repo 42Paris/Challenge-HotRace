@@ -6,7 +6,7 @@
 /*   By: fbecerri <fbecerri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 10:29:20 by fbecerri          #+#    #+#             */
-/*   Updated: 2021/04/07 10:29:22 by fbecerri         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:04:10 by fbecerri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ int     main(void) {
             if (ent)
                 ent->data = s2;
         } else if (m == (t_mode)research) {
-            print_string(&w, s1);
-            io_write(&w, ": ", 2);
             t_entry *ent = hashtable_get(table, s1);
-            if (ent == NULL)
+            if (ent == NULL) {
+                print_string(&w, s1);
+                io_write(&w, ": ", 2);
                 io_write(&w, "Not found\n", 10);
+            }
             else {
                 print_string(&w, ent->data);
                 io_write(&w, "\n", 1);

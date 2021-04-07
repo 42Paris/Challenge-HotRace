@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:26:40 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 13:06:01 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 16:22:24 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct	s_data
 {
 	char	*key;
 	char	*value;
-	size_t	length_key;
 }			t_data;
 
 void	print_clean_list(t_list *output);

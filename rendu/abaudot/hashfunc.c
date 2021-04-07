@@ -6,7 +6,7 @@
 /*   By: abaudot <abaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 17:45:03 by abaudot           #+#    #+#             */
-/*   Updated: 2021/04/07 21:06:48 by abaudot          ###   ########.fr       */
+/*   Updated: 2021/04/07 22:22:46 by abaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ uint64_t spihash(const uint8_t *in, const size_t inlen)
     uint64_t v2 = 0x6c7967656e657261UL;
     uint64_t v1 = 0x646f72616e646f6dUL;
     uint64_t v0 = 0x736f6d6570736575UL;
-    const uint8_t *end = in + inlen - (inlen % sizeof(uint64_t));
+    const uint8_t *end = in + inlen - (inlen & 7);
     for (; in != end; in += 8) {
         uint64_t m = *(uint64_t*)(in);
         v3 ^= m;

@@ -6,13 +6,13 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:00:24 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 13:08:07 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 19:22:54 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
 
-int	in_charset(char const c, char const *charset, size_t *pos)
+int	contains_equal(char const c, char const *charset, size_t *pos)
 {
 	*pos = 0;
 	while (charset[*pos])
@@ -47,6 +47,24 @@ void	print_clean_list(t_list *output)
 			tmp = tmp->next;
 		}
 	}
+}
+
+void	free_data(void *content)
+{
+	t_data	*data = content;
+	if (data->key)
+		free(data->key);
+	// if (data->value)
+	// 	free(data->value);
+	free(data);
+}
+
+void	set_data(t_data **data, char *line, size_t length_key)
+{
+	(*data) = malloc(sizeof(**data));
+	(*data)->key = line;
+	(*data)->key[length_key] = '\0';
+	(*data)->value = &line[length_key + 1];
 }
 
 // void	print_clean_list(t_list *output) // big buffer to avoid write calls

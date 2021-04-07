@@ -471,7 +471,7 @@ template < class Key, class Value, class NodeContents, class Compare = less<Key>
 							x = x->parent;
 						}
 						else { // Case 3 or 4
-							if (w->right->colour == BLACK && w->left) { // Case 3
+							if (w->right && w->right->colour == BLACK && w->left) { // Case 3
 								w->left->colour = BLACK;
 								w->colour = RED;
 								right_rotation(w);
@@ -480,7 +480,8 @@ template < class Key, class Value, class NodeContents, class Compare = less<Key>
 							else { // Case 4
 								w->colour = x->parent->colour;
 								x->parent->colour = BLACK;
-								w->right->colour = BLACK;
+								if (w->right)
+									w->right->colour = BLACK;
 								left_rotation(x->parent);
 								x = this->_root;
 							}

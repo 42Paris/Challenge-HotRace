@@ -6,7 +6,7 @@
 /*   By: atruphem <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 15:02:16 by atruphem          #+#    #+#             */
-/*   Updated: 2021/04/07 15:02:23 by atruphem         ###   ########.fr       */
+/*   Updated: 2021/04/07 22:35:12 by toni             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	clean_tree(t_rb_node *root)
 
 	rig = 0;
 	lef = 0;
+	if (!root)
+		return;
 	if (root->right)
 	{	
 		clean_tree(root->right);

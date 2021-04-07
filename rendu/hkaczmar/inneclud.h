@@ -6,5 +6,3 @@
 #include <stdlib.h>
 #include <stdio.h>
 // Might as well include all glibc while we're at it
-
-int	gnl(int fd, char **line);

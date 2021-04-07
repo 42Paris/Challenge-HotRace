@@ -3,23 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ngragas <ngragas@student.21-school.ru>     +#+  +:+       +#+         #
+#    By: ngragas <ngragas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/10/04 20:29:14 by ngragas           #+#    #+#              #
-#    Updated: 2021/04/07 20:56:17 by ngragas          ###   ########.fr        #
+#    Created: 2021/04/07 23:24:10 by ngragas           #+#    #+#              #
+#    Updated: 2021/04/07 23:24:34 by ngragas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = hotrace
 CFLAGS = -Wall -Wextra -Werror -Ofast
-SRC =	hotrace.c				\
-		get_next_line_libc.c	\
-# 		hotrace_utils.c			\
+SRC =	hotrace.c		\
+# 		hotrace_utils.c
 
 OBJ = $(SRC:.c=.o)
-
-HEADER =	hotrace.h	\
-			get_next_line_libc.h
+HEADER = hotrace.h
 
 all: $(NAME)
 $(NAME): $(OBJ)

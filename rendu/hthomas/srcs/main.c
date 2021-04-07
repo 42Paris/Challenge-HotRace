@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 19:34:04 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 19:49:09 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void	remove_from_table(t_list ***table, char *key)
 int		main(int argc, char const *argv[])
 {
 	char	*line;
-	t_data	*data;
 	t_list	**table;
 
 	if (argc != 1)
@@ -126,35 +125,31 @@ int		main(int argc, char const *argv[])
 	{
 		size_t	length_key;
 		char	type;
+		t_data	*data;
 
 		type = type_entry(line, &length_key);
 		if (type == ENTRY)
 		{
 			set_data(&data, line, length_key);
 			if (!is_in_table(table, data->key))
+			{
 				add_to_table(table, data);
+			}
 			else
 				free_data(data);
 		}
 		else if (type == SEARCH)
 		{
-			data = malloc(sizeof(*data));
-			data->key = line;
-			find_value(table, data->key);
+			find_value(table, line);
 			free(line);
 		}
 		else if (type == DELETE)
 		{
-			data = malloc(sizeof(*data));
-			data->key = &line[1];
-			data->value = NULL;
-			remove_from_table(&table, data->key);
+			remove_from_table(&table, &line[1]);
 			free(line);
 		}
 		else
-		{
 			free(line);
-		}
 	}
 	int	i = 0;
 	while (i < SIZE_DATABASE)

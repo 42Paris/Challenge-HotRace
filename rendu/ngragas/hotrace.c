@@ -6,7 +6,7 @@
 /*   By: ngragas <ngragas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 23:24:22 by ngragas           #+#    #+#             */
-/*   Updated: 2021/04/07 23:32:45 by ngragas          ###   ########.fr       */
+/*   Updated: 2021/04/07 23:33:29 by ngragas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	key_add(const char *kv_str, char *eq_pos, unsigned int kv_len)
 		while (true)
 		{
 			if (memcmp(table->key, kv_str, key_len + 1) == 0)
+			{
+				free((void *)kv_str);
 				return ;
+			}
 			if (table->next == NULL)
 				break ;
 			table = table->next;

@@ -1,5 +1,7 @@
 NAME = hotrace
 
+SHELL := /bin/zsh
+
 # COLORS
 PINK = \x1b[35;01m
 BLUE = \x1b[34;01m
@@ -25,11 +27,10 @@ all: $(NAME)
 
 $(NAME): libft.a getnextline.a $(OBJS)
 	@echo -e "$(BLUE) @ is " $^ "$(RESET)"
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(SRCS) libft.a getnextline.a -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $(SRCS) libft/libft.a getnextline/getnextline.a -o $@
 
 %.a: %
-	$(MAKE) -sC $^
-	cp $</$@ .
+	@$(MAKE) -sC $^
 
 %.o: %.cpp
 	@$(CXX) -c $(CXXFLAGS) $(INCLUDE) $^ -o $@
@@ -40,10 +41,16 @@ clean:
 	@$(MAKE) clean -sC getnextline
 
 fclean: clean
-	@$(RM) $(NAME) libft.a getnextline.a
+	@$(RM) $(NAME)
 	@$(MAKE) fclean -sC libft
 	@$(MAKE) fclean -sC getnextline
 
 re: fclean all
 
-.PHONY: re clean fclean
+test: $(NAME)
+	cat ../../ressources/generated-1 | ./$< > myoutput1.txt
+
+test_time: $(NAME)
+	cat ../../ressources/generated-1 | time ./$<;
+
+.PHONY: re clean fclean test time

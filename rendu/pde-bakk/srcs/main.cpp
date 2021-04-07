@@ -13,7 +13,7 @@ void	new_entry(char* line, size_t i) {
 				value;
 	key.assign(line, i);
 	value.assign(line + i + 1);
-	dict[key] = value;
+	dict.insert(ft::make_pair(key, value)); // insert over [] so it wont add the new value if the key already existed
 }
 
 void	get_entry(char* line) {
@@ -30,7 +30,13 @@ void	parse(char* line) {
 		dict.erase(line + 1);
 	} else {
 		size_t i = 0;
-		while (line[i] && line[i] != '=') {
+		while (line[i]) {
+			if (line[i] == '=') {
+				if (line[i + 1] == '=')
+					++i;
+				else
+					break;
+			}
 			++i;
 		}
 		if (line[i] == '=')

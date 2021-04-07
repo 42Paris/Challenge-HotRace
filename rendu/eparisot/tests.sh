@@ -2,5 +2,9 @@
 
 for F in ../../ressources/*; do
 	echo $F;
-	time (./hotrace < $F)>/dev/null;
+	filea="$( basename $F )A";
+	fileb="$( basename $F )B";
+	time ( ( ./hotrace < $F ) > $filea);
+	( python3 compare.py < $F ) > $fileb;
+	diff $filea $fileb;
 done

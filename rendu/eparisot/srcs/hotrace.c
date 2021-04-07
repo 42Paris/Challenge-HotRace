@@ -193,9 +193,11 @@ void del_entry(unsigned long hash) {
 			while (tmp_data_lst->next) {
 				if (hash == ((t_data_slot*)tmp_data_lst->content)->hash) {
 					((t_data_slot*)tmp_data_lst->content)->deleted = 1;
+					break;
 				}
 				tmp_data_lst = tmp_data_lst->next;
 			}
+			break;
 		}
 		tmp_index_lst = tmp_index_lst->next;
 	}

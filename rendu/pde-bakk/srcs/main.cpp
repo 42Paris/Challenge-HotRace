@@ -5,20 +5,30 @@ extern "C" {
 }
 #include <iostream>
 #include <string>
+#include <cstdio>
+#include "string.hpp"
 
-ft::map<std::string, std::string>	dict;
+#ifndef STRING
+# define STRING ft
+#endif
+using STRING::string;
+
+ft::map<string, string>	dict;
 
 void	new_entry(char* line, size_t i) {
-	std::string	key,
-				value;
-	key.assign(line, i);
-	value.assign(line + i + 1);
+	line[i] = '\0';
+	string	key = line,
+			value = line + i + 1;
+//	key.assign(line, i);
+//	value.assign(line + i + 1);
+	line[i] = '=';
 	dict.insert(ft::make_pair(key, value)); // insert over [] so it wont add the new value if the key already existed
+
 }
 
 void	get_entry(char* line) {
 	try {
-		std::string valeur = dict.at(line);
+		string valeur = dict.at(line);
 		std::cout << valeur << "\n";
 	} catch (std::exception& e) {
 		std::cout << line << ": Not found\n";
@@ -54,4 +64,5 @@ int main() {
 		line = NULL;
 	}
 	free(line);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 17:47:10 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 19:16:12 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,14 @@ static const unsigned int	hash(char const *key, size_t const size_database)
 	return (h);
 }
 
-char const	type_entry(char *line, t_data *data)
+char const	type_entry(char *line, t_data *data, size_t *length_key)
 {
-	size_t	length_key;
-
 	if (line[0] == '!')
-	{
-		data->key = &line[1];
-		data->value = NULL;
 		return (DELETE);
-	}
-	else if (in_charset('=', line, &length_key))
-	{
-		data->key = line;
-		data->key[length_key] = '\0';
-		data->value = &line[length_key + 1];
+	else if (in_charset('=', line, length_key))
 		return (ENTRY);
-	}
 	else
-	{
-		data->key = line;
 		return (SEARCH);
-	}
 }
 
 t_data	*get_data(t_list const *table)
@@ -141,49 +127,44 @@ int		main(int argc, char const *argv[])
 	char	*line;
 	t_data	*data;
 	t_list	**table;
-	// t_list	*outputs;
 
 	if (argc != 1)
 		return (0);
 	(void) argv;
 	table = malloc(sizeof(*table) * SIZE_DATABASE);
-	// outputs = NULL;
 	while (get_next_line(&line, 0))
 	{
-		data = malloc(sizeof(*data));
-		char type = type_entry(line, data);
+		size_t	length_key;
+		char	type;
+
+		type = type_entry(line, data, &length_key);
 		if (type == ENTRY)
 		{
+			data = malloc(sizeof(*data));
+			data->key = line;
+			data->key[length_key] = '\0';
+			data->value = &line[length_key + 1];
 			if (!is_in_table(table, data->key))
 				add_to_table(table, data);
 		}
 		else if (type == SEARCH)
 		{
+			data->key = line;
 			find_value(table, data->key);
-			// char	*output;
-			// data->value = find_value(table, data->key);
-			// output = strjoin(data->key, ": ");
-			// output = strjoin_free(output, data->value);
-			// ft_lstadd_back(&outputs, ft_lstnew(output));
-			// free(data->value);
-			free(data);
 			free(line);
 		}
 		else if (type == DELETE)
 		{
+			data->key = &line[1];
+			data->value = NULL;
 			remove_from_table(&table, data->key);
-			free(data);
 			free(line);
 		}
 		else
 		{
-			free(data);
 			free(line);
 		}
-		// free(key);
-		// free(value);
 	}
-	// print_clean_list(outputs);
 	int	i = 0;
 	while (i < SIZE_DATABASE)
 	{
@@ -191,7 +172,6 @@ int		main(int argc, char const *argv[])
 			ft_lstclear(&(table[i]), &free_data);
 		i++;
 	}
-	// ft_lstclear(&outputs, free);
 	free(table);
 	return (0);
 }

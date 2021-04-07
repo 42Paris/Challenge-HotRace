@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 11:05:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/04/07 17:44:05 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:59:22 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void eval(db &db, std::string command)
 	std::string value;
 
 	char *tmp;
-	int test;
+	size_t test;
 	if (!std::cin.good())
 		exit(0);
 	tmp = (char *)command.c_str();

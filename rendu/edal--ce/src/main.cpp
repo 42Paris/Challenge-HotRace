@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edal <edal@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 11:05:40 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/04/07 17:59:22 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/04/07 19:47:04 by edal             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,10 @@ void eval(db &db, std::string command)
 		db.query(command);
 }
 
-void feed(db &db)
-{
-	std::ifstream file("./dicos/generated-1");
-	std::string line;
-	int i = 0;
-	if (file)
-    {
-
-		while (getline(file, line))
-		{
-			i++;
-			if ((i % 1000) == 0)
-				std::cout << "Processing line " << i << "/1100000 " << i / 1100000 << "%"<< std::endl;
-			eval(db, line);
-		}
-	    file.close();
-    }
-	else 
-		std::cout << "File open failed" << std::endl;
-}
-
-void prompt(db &db)
-{
-	std::string command;
-	while (command != "EXIT")
-	{
-		std::getline(std::cin, command);
-		eval(db, command);
-	}	
-}
-
 int main()
 {
-	db test;
-	prompt(test);
+	db _db;
+	for (std::string line; std::getline(std::cin, line);)
+		eval(_db, line);
 	return 0;
 }

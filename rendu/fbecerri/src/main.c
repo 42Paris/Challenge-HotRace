@@ -1,10 +1,16 @@
-#include "hash.h"
-#include "hotRace.h"
-#include "ft_string.h"
-#include "io_read.h"
-#include "io_write.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbecerri <fbecerri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/07 10:29:20 by fbecerri          #+#    #+#             */
+/*   Updated: 2021/04/07 10:29:22 by fbecerri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int     test = 0;
+#include "hotrace.h"
 
 int     main(void) {
     t_io_read   *r;
@@ -15,12 +21,11 @@ int     main(void) {
     int         i = 0;
     t_write     w;
 
-    test = 0;
     w.index = 0;
     w.nb_write = 0;
-    r = init_reader(4096, 0);
+    r = init_reader(BUFFER_SIZE_R, 0);
     io_read_file(&r);
-    table = create_hashtable(4096);
+    table = create_hashtable(TABLE_SIZE);
     while ((m = read_line(&s1, &s2, r)) != (t_mode)end) {
         if (m == (t_mode)add) {
             t_entry *ent = insert_hashtable(&table, create_entry(s1));

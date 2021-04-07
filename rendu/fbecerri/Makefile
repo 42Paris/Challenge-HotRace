@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Iinclude
-INCLUDE = include/ft_string.h include/hash.h include/hotRace.h include/io_read.h include/io_write.h
+INCLUDE = include/ft_string.h include/hash.h include/hotrace.h include/io_read.h include/io_write.h
 LDFLAGS =
 
 BUILD_DIR = build

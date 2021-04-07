@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 20:18:14 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 20:26:05 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,24 +135,19 @@ int		main(int argc, char const *argv[])
 			{
 				set_data(&data, line, length_key);
 				add_to_table(table, data);
+				free(tmp_key);
+				continue ;
 			}
-			else
-				free(line);
 			free(tmp_key);
 		}
 		else if (type == SEARCH)
-		{
 			find_value(table, line);
-			free(line);
-		}
 		else if (type == DELETE)
-		{
 			remove_from_table(&table, &line[1]);
-			free(line);
-		}
-		else
-			free(line);
+		free(line);
 	}
+	if (line)
+		free(line);
 	int	i = 0;
 	while (i < SIZE_DATABASE)
 	{

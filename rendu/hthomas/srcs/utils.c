@@ -6,11 +6,16 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:00:24 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 19:22:54 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/07 20:32:58 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
+
+char	*get_str(t_list *outputs)
+{
+	return ((char *)(outputs->content));
+}
 
 int	contains_equal(char const c, char const *charset, size_t *pos)
 {
@@ -24,9 +29,22 @@ int	contains_equal(char const c, char const *charset, size_t *pos)
 	return (0);
 }
 
-char	*get_str(t_list *outputs)
+void	set_data(t_data **data, char *line, size_t length_key)
 {
-	return ((char *)(outputs->content));
+	(*data) = malloc(sizeof(**data));
+	(*data)->key = line;
+	(*data)->key[length_key] = '\0';
+	(*data)->value = &line[length_key + 1];
+}
+
+void	free_data(void *content)
+{
+	t_data	*data = content;
+	if (data->key)
+		free(data->key);
+	// if (data->value)
+	// 	free(data->value);
+	free(data);
 }
 
 void	print_clean_list(t_list *output)
@@ -47,24 +65,6 @@ void	print_clean_list(t_list *output)
 			tmp = tmp->next;
 		}
 	}
-}
-
-void	free_data(void *content)
-{
-	t_data	*data = content;
-	if (data->key)
-		free(data->key);
-	// if (data->value)
-	// 	free(data->value);
-	free(data);
-}
-
-void	set_data(t_data **data, char *line, size_t length_key)
-{
-	(*data) = malloc(sizeof(**data));
-	(*data)->key = line;
-	(*data)->key[length_key] = '\0';
-	(*data)->value = &line[length_key + 1];
 }
 
 // void	print_clean_list(t_list *output) // big buffer to avoid write calls

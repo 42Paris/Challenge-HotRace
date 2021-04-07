@@ -20,7 +20,7 @@
 #include <unistd.h>
 #include "../libft/libft.h"
 
-# define CHUNK_SIZE 512
+# define CHUNK_SIZE 256
 
 typedef struct			s_env
 {

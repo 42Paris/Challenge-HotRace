@@ -17,11 +17,22 @@
 #include <string.h>
 #include "stdlib.h"
 
+#define	INIT_PAIR(pair, line)\
+			char * sep = strchr(line, '=');\
+				pair.key = line;\
+				if (sep) {\
+					*sep = '\0';\
+					sep++;\
+					pair.value = sep;\
+				}\
+				else\
+					pair.value = NULL;
+
 typedef struct	s_pair {
 	char	*key;
 	char	*value;
 }				t_pair;
 
-void			init_pair(t_pair *pair, char *line);
+inline void			init_pair(t_pair *pair, char *line);
 
 #endif

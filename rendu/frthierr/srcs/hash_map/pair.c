@@ -12,6 +12,18 @@
 
 #include "pair.h"
 #include "stdio.h"
+
+#define	INIT_PAIR(pair, line)\
+			char * sep = strchr(line, '=');\
+				pair.key = line;\
+				if (sep) {\
+					*sep = '\0';\
+					sep++;\
+					pair.value = sep;\
+				}\
+				else\
+					pair.value = NULL;
+
 void	init_pair(t_pair *pair, char *line) {
 	char * sep = strchr(line, '=');
 	pair->key = line;

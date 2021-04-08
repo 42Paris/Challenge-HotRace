@@ -13,8 +13,8 @@
 #include "sigint_catcher.h"
 
 void	sigint_catcher(int __attribute__((unused))i) {
-	if (g_hash_map_ptr)
-		free_data(g_hash_map_ptr);
+	// if (g_hash_map_ptr)
+	// 	free_data(g_hash_map_ptr);
 	if (g_line && *g_line)
 		free(*g_line);
 	exit(1);

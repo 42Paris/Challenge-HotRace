@@ -115,8 +115,15 @@ bool			parse_command(const t_hash_map *hash_map, char *line) {
 
 	if (!line || !hash_map)
 		return false;
-	init_pair(&pair, line);
-	if (!pair.value) {
+	char * sep = strchr(line, '=');
+	pair.key = line;
+	if (sep) {
+		*sep = '\0';
+		sep++;
+		pair.value = sep;
+		return insert_data(hash_map, &pair);
+	}
+	else {
 		pair.value = query_data(hash_map, &pair);
 		if (pair.value)
 			printf("%s\n", pair.value);
@@ -125,9 +132,6 @@ bool			parse_command(const t_hash_map *hash_map, char *line) {
 			return false;
 		}
 		free(pair.key);
-	}
-	else {
-		return insert_data(hash_map, &pair);
 	}
 	return true;
 }

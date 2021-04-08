@@ -30,7 +30,6 @@ typedef struct hashmap
 {
     t_hm_node* data;
     size_t capacity;
-    size_t size;
 } t_hashmap;
 
 size_t fnv1a_32(t_string key)
@@ -156,15 +155,13 @@ int main(void)
     if (!(map.data = calloc(HASHMAP_CAPACITY, sizeof(t_hm_node))))
         return 1;
     map.capacity = HASHMAP_CAPACITY;
-    map.size = 0;
     for (unsigned i = 0; i < map.capacity; i++)
         map.data[i].next = EMPTY_NODE;
     while ((read = getline(&(line.string), &getline_size, stdin)) >= 0)
     {
-        line.length = strlen(line.string);
-        if (line.length < 2)
+        if (read == 0)
             continue;
-        line.length -= 1; /* Remove the trailing '\n' */
+        line.length = read - 1;
         if (line.string[0] == '!')
         {
             key.string = line.string + 1;

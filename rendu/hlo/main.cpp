@@ -2,7 +2,6 @@
 #include <string>
 #include <unordered_map>
 
-
 void enterPair(std::unordered_map<std::string, std::string>&hashmap, const std::string& s1, 
 const std::string& s){
   hashmap[s1] = s;
@@ -55,8 +54,7 @@ int main() {
       /* ignore second entry if key already exists*/
         continue;
     }
-    else {
-    lookUp(hashmap, line);
-    }
+    else 
+      lookUp(hashmap, line);
   }
 }

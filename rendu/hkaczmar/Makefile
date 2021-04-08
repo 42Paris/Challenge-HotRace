@@ -1,7 +1,6 @@
 NAME		=	hotrace
 
 SRC			=	main.c\
-				pair.c\
 				nodestuff.c\
 
 OBJ			=	$(SRC:.c=.o)

@@ -1,5 +1,6 @@
 #include "pair.h"
 #include "inneclud.h"
+#include <malloc.h>
 
 /*
 ** Will a simple binary search tree outrun the hashtables some students already
@@ -28,6 +29,7 @@ int main(void)
 	size_t	len = 0;
 	ssize_t	rd_s;
 
+	mallopt(M_CHECK_ACTION, 0);
 	while ((rd_s = getdelim(&line, &len, '\n', stdin)) != -1)
 	{
 		char	*equal_pos;
@@ -36,7 +38,7 @@ int main(void)
 		if (*line == '!')
 			delete(line + 1, root);
 		else if ((equal_pos = strchr(line, '=')))
-			insert(strndup(line, (uintptr_t)(equal_pos - line)), strdup(equal_pos + 1), &root);
+			insert(line, equal_pos, &root);
 		else
 		{
 			node *n;

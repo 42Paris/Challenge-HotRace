@@ -51,13 +51,13 @@ node		*get_node(const char *key, node *root)
 	return (curr);
 }
 
-void		insert(const char *key, const char *value, node **root)
+void		insert(const char *line, const char *equal_pos, node **root)
 {
 	node	*curr, *parent;
 	int		cmp;
 
 	if (!*root)
-		*root = new_node(key, value);
+		*root = new_node(strndup(line, (uintptr_t)(equal_pos - line)), strdup(equal_pos + 1));
 	else
 	{
 		curr = *root;
@@ -78,13 +78,13 @@ void		insert(const char *key, const char *value, node **root)
 			**
 			*/
 
-			cmp = strcmp(curr->key, key);
+			cmp = strncmp(curr->key, line, equal_pos - line);
 			if (cmp < 0)
 			{
 				parent = curr;
 				if (!(curr = curr->left))
 				{
-					parent->left = new_node(key, value);
+					parent->left = new_node(strndup(line, (uintptr_t)(equal_pos - line)), strdup(equal_pos + 1));
 					return;
 				}
 			}
@@ -93,7 +93,7 @@ void		insert(const char *key, const char *value, node **root)
 				parent = curr;
 				if (!(curr = curr->right))
 				{
-					parent->right = new_node(key, value);
+					parent->right = new_node(strndup(line, (uintptr_t)(equal_pos - line)), strdup(equal_pos + 1));
 					return;
 				}
 			}
@@ -101,7 +101,7 @@ void		insert(const char *key, const char *value, node **root)
 			{
 				if (curr->disabled)
 				{
-					curr->value = value;
+					curr->value = strdup(equal_pos + 1);
 					curr->disabled = 0;
 				}
 				return;

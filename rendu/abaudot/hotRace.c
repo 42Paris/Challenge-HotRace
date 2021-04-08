@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   hotRace.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaudot <abaudot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 10:14:40 by abaudot           #+#    #+#             */
-/*   Updated: 2021/04/07 21:15:47 by abaudot          ###   ########.fr       */
+/*   Updated: 2021/04/08 10:43:28 by abaudot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ static inline void message(const t_str *out, const t_str *entry)
 	else
 		printf("%.*s: Not found\n", entry->key, entry->s);
 }
-		
 
-int main(int ac, char **av)
+int main(void)
 {
 	t_str		entry;
 	t_str		*out;
@@ -39,8 +38,8 @@ int main(int ac, char **av)
 	size_t		len;
 	ssize_t		av_read;
 	
-	struct s_map *hmap = new_( 0);
-	while ((av_read = getline(&reader, &len, stdin)) != -1)
+	struct s_map *hmap = new_(0);
+	while ((av_read = getdelim(&reader, &len, '\n', stdin)) != -1)
 	{
 		--av_read;
 		if (reader[0] == '!')

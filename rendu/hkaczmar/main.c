@@ -1,6 +1,6 @@
 #include "pair.h"
 #include "inneclud.h"
-#include "malloc.h"
+#include <malloc.h>
 
 /*
 ** Will a simple binary search tree outrun the hashtables some students already

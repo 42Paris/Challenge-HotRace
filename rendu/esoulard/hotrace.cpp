@@ -6,7 +6,7 @@
 /*   By: esoulard <esoulard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:09:10 by esoulard          #+#    #+#             */
-/*   Updated: 2021/04/08 11:49:14 by esoulard         ###   ########.fr       */
+/*   Updated: 2021/04/08 13:00:56 by esoulard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int main() {
         equal = NULL;
 
         std::getline(std::cin, in_str);
-        if (!std::cin.good())
+        if (!std::cin)
             break ;
 
         in_c = &in_str[0];

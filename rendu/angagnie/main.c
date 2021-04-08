@@ -81,9 +81,19 @@ bool hashmap_remove(t_hashmap* map, const t_string* key)
     free(ptr->key.string);
     free(ptr->value.string);
     if (prev == NULL)
-        ptr->next = EMPTY_NODE;
+    {
+        if (ptr->next == NULL)
+        {
+            ptr->next = EMPTY_NODE;
+            return true;
+        }
+        prev = ptr;
+        ptr = ptr->next;
+        memcpy(prev, ptr, sizeof(t_hm_node));
+    }
     else
         prev->next = ptr->next;
+    free(ptr);
     return true;
 }
 

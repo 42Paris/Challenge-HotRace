@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/08 13:14:14 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/08 13:48:57 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	remove_from_table(t_list ***table, char *key, ssize_t const len)
 	t_list			*tmp;
 	unsigned int	h;
 
+	g_last_key = NULL;
 	h = hash(key, SIZE_DATABASE, len);
 	if ((*table)[h])
 	{

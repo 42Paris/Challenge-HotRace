@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 10:59:01 by frthierr          #+#    #+#             */
-/*   Updated: 2021/04/08 09:06:50 by frthierr         ###   ########.fr       */
+/*   Updated: 2021/04/08 12:25:45 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int	main(int argc, char __attribute__((unused))**argv) {
 			line[len] = '\0';
 		if (line[0] == '!' && line[1]) {
 			delete_value(&hash_map, &line[1]);
-			free(line);
+			// free(line);
 		}
 		else {
-			if (!parse_command(&hash_map, line))
-				free(line);
+			parse_command(&hash_map, line);
+				// free(line);
 		}
 		line = NULL;
 	}

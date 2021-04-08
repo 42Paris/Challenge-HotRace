@@ -1,5 +1,5 @@
 NAME = hotrace
-SRC	= main.c
+SRC = main.c
 CC = gcc
 CPPFLAGS += -Wall -Werror -Wextra -Ofast -march=native
 SIZE ?= 16384

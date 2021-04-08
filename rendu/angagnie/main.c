@@ -149,8 +149,6 @@ int main(void)
     map.size = 0;
     for (unsigned i = 0; i < map.capacity; i++)
         map.data[i].next = EMPTY_NODE;
-
-    printf("Node size : %lu\n", sizeof(t_hm_node));
     while ((read = getline(&(line.string), &getline_size, stdin)) >= 0)
     {
         line.length = strlen(line.string);
@@ -161,8 +159,7 @@ int main(void)
         {
             key.string = line.string + 1;
             key.length = line.length - 1;
-            bool ret = hashmap_remove(&map, &key);
-            printf("Remove '%.*s' : %i\n", (int)key.length, key.string, ret);
+            hashmap_remove(&map, &key);
         }
         else
         {
@@ -171,7 +168,6 @@ int main(void)
                 ++equal;
             if (line.string[equal] == '\0')
             {
-                printf("Look for '%.*s'\n", (int)line.length, line.string);
                 if (hashmap_get(&map, &line, &value))
                     printf("%.*s\n", (int)value.length, value.string);
                 else
@@ -183,8 +179,7 @@ int main(void)
                 key.length = equal;
                 value.string = line.string + equal + 1;
                 value.length = line.length - equal - 1;
-                bool ret = hashmap_add(&map, &key, &value);
-                printf("Set '%.*s' as '%.*s' : %i\n", (int)key.length, key.string, (int)value.length, value.string, ret);
+                hashmap_add(&map, &key, &value);
             }
         }
 

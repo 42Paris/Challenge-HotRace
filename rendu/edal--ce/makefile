@@ -10,7 +10,7 @@ SRC 		= 	db.cpp \
 				dictree.cpp
 
 
-CFLAGS		=	-ofast -Wall -Wextra -Werror -march=native #-g3 -fsanitize=address#-Wall -Wextra -Werror # -O3 #-g3 -fsanitize=address #
+CFLAGS		=	-ofast -march=native #-Wall -Wextra -Werror  #-g3 -fsanitize=address#-Wall -Wextra -Werror # -O3 #-g3 -fsanitize=address #
 CC			=	clang++
 
 all : $(NAME)

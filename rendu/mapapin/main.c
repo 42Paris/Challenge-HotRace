@@ -350,7 +350,10 @@ void	print_tree(t_node *tree)
 
 void	init_hash_table()
 {
-	memset(hash_table, 0, TABLE_SIZE);
+	int	i = 0;
+
+	while (i < TABLE_SIZE)
+		hash_table[i++] = NULL;
 }
 
 int		hash(char * key)

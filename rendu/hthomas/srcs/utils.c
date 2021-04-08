@@ -6,13 +6,13 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:00:24 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 13:08:07 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/08 09:30:39 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
 
-int	in_charset(char const c, char const *charset, size_t *pos)
+int	contains_equal(char const c, char const *charset, size_t *pos)
 {
 	*pos = 0;
 	while (charset[*pos])
@@ -24,48 +24,41 @@ int	in_charset(char const c, char const *charset, size_t *pos)
 	return (0);
 }
 
-char	*get_str(t_list *outputs)
+void	set_data(t_data **data, char *line, size_t length_key)
 {
-	return ((char *)(outputs->content));
+	*data = malloc(sizeof(**data));
+	(*data)->key = line;
+	(*data)->key[length_key] = '\0';
+	(*data)->value = &line[length_key + 1];
 }
 
-void	print_clean_list(t_list *output)
+void	free_data(void *content)
 {
-	t_list	*tmp;
-
-	tmp = output;
-	if (tmp)
-	{
-		printf("%s\n", get_str(tmp));
-		tmp = tmp->next;
-	}
-	while (tmp)
-	{
-		if (tmp)
-		{
-			printf("%s\n", get_str(tmp));
-			tmp = tmp->next;
-		}
-	}
+	t_data	*data = content;
+	if (data->key)
+		free(data->key);
+	free(data);
 }
 
-// void	print_clean_list(t_list *output) // big buffer to avoid write calls
-// {
-// 	t_list	*tmp;
-// 	char 	buff[1000000];
-// 	int		i;
+t_list	**init_table(void)
+{
+	t_list	**table;
 
-// 	tmp = output;
-// 	while (tmp)
-// 	{
-// 		i = 0;
-// 		while (i < 999900 && tmp)
-// 		{
-// 			ft_strcpy(&buff[i], get_str(tmp));
-// 			i += ft_strlen(get_str(tmp));
-// 			buff[i++] = '\n';
-// 			tmp = tmp->next;
-// 		}
-// 		write(1, buff, i);
-// 	}
-// }
+	table = malloc(sizeof(*table) * SIZE_DATABASE);
+	int	i = 0;
+	while (i < SIZE_DATABASE)
+		table[i++] = 0;
+	return (table);
+}
+
+void 	free_table(t_list **table)
+{
+	int i = 0;
+	while (i < SIZE_DATABASE)
+	{
+		if (table[i])
+			ft_lstclear(&(table[i]), &free_data);
+		i++;
+	}
+	free(table);
+}

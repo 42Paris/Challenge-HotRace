@@ -6,7 +6,7 @@
 /*   By: frthierr <frthierr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 10:59:01 by frthierr          #+#    #+#             */
-/*   Updated: 2021/04/08 12:25:45 by frthierr         ###   ########.fr       */
+/*   Updated: 2021/04/08 12:29:13 by frthierr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ int	main(int argc, char __attribute__((unused))**argv) {
 	}
 	if (line)
 		free(line);
-	free_data(&hash_map);
+	// free_data(&hash_map);
 	return 0;
 }

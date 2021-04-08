@@ -6,7 +6,7 @@
 /*   By: jraffin <jraffin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 07:20:19 by jraffin           #+#    #+#             */
-/*   Updated: 2021/04/08 12:48:51 by jraffin          ###   ########.fr       */
+/*   Updated: 2021/04/08 13:54:47 by jraffin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		main(void)
 			break ;
 	}
 	free(line);
-	//free_tree(treeroot);
+	free_tree(treeroot);
 	if (errno)
 	{
 		perror(NULL);

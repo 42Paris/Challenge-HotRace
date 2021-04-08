@@ -4,7 +4,7 @@ OBJS = ${SRCS:.c=.o}
 
 NAME = hotrace
 
-FLAGS = -Werror -Wall -Wextra
+FLAGS = -Werror -Wall -Wextra -Ofast
 
 CC = cc
 

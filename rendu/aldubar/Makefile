@@ -6,7 +6,7 @@
 #    By: aldubar <aldubar@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/05 14:26:59 by aldubar           #+#    #+#              #
-#    Updated: 2021/04/05 22:00:46 by aldubar          ###   ########.fr        #
+#    Updated: 2021/04/08 13:51:13 by aldubar          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS		=	main.c \
 
 CC		=	@clang
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -O3
 
 RM		=	@rm -rf
 

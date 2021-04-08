@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:53:06 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/04/07 15:33:19 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/04/08 10:50:35 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 
 typedef unsigned char	t_uchar;
 
@@ -25,8 +26,5 @@ typedef struct			s_trie
 	struct s_trie		**map;
 	char 				*value;
 }						t_trie;
-
-char					*ft_strdup(const char *s1);
-size_t					ft_strlen(const char *s);
 
 #endif

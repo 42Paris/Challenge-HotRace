@@ -6,7 +6,7 @@
 #    By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/20 19:19:55 by ciglesia          #+#    #+#              #
-#    Updated: 2021/04/07 15:20:22 by ciglesia         ###   ########.fr        #
+#    Updated: 2021/04/08 10:49:45 by ciglesia         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,14 +16,12 @@ INC			=	./include/
 INCLUDE		=	-I $(INC)
 
 DIRSRC		=	./src/
-DIRLIB		=	./src/lib/
 
 SRC			=	hotrace.c
-LIB			=	ft_strdup.c ft_strlen.c
 
 DIROBJ		=	./depo/
 
-OAUX		=	$(SRC:%=$(DIROBJ)%) $(LIB:%=$(DIROBJ)%)
+OAUX		=	$(SRC:%=$(DIROBJ)%)
 DEPS		=	$(OAUX:.c=.d)
 OBJS		=	$(OAUX:.c=.o)
 
@@ -43,9 +41,6 @@ RM			=	/bin/rm -f
 ECHO		=	/bin/echo -e
 
 %.o		:		../$(DIRSRC)/%.c
-				$(CC) $(CFLAGS) $(INCLUDE) -MMD -o $@ -c $<
-
-%.o		:		../$(DIRLIB)/%.c
 				$(CC) $(CFLAGS) $(INCLUDE) -MMD -o $@ -c $<
 
 $(NAME)	:		$(OBJS)

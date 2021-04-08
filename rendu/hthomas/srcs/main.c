@@ -6,11 +6,14 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/08 10:13:18 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/08 13:14:14 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/hotrace.h"
+
+char	*g_last_value = NULL;
+char	*g_last_key = NULL;
 
 static unsigned int	hash(char const *key, size_t const size_database, ssize_t const len)
 {
@@ -71,6 +74,11 @@ void	find_value(t_list **table, char const *key, ssize_t const len)
 	t_list		*tmp;
 	unsigned int	h;
 
+	if (g_last_key && key && !strcmp(g_last_key, key))
+	{
+		printf("%s\n", g_last_value);
+		return ;
+	}
 	h = hash(key, SIZE_DATABASE, len);
 	if (table[h])
 	{
@@ -79,7 +87,9 @@ void	find_value(t_list **table, char const *key, ssize_t const len)
 		{
 			if (!strcmp(key, get_data(tmp)->key))
 			{
-				printf("%s\n", get_data(tmp)->value);
+				g_last_key = key;
+				g_last_value = get_data(tmp)->value;
+				printf("%s\n", g_last_value);
 				return ;
 			}
 			tmp = tmp->next;

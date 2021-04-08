@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:00:24 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/07 22:54:16 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/08 09:30:39 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,27 @@ void	free_data(void *content)
 	if (data->key)
 		free(data->key);
 	free(data);
+}
+
+t_list	**init_table(void)
+{
+	t_list	**table;
+
+	table = malloc(sizeof(*table) * SIZE_DATABASE);
+	int	i = 0;
+	while (i < SIZE_DATABASE)
+		table[i++] = 0;
+	return (table);
+}
+
+void 	free_table(t_list **table)
+{
+	int i = 0;
+	while (i < SIZE_DATABASE)
+	{
+		if (table[i])
+			ft_lstclear(&(table[i]), &free_data);
+		i++;
+	}
+	free(table);
 }

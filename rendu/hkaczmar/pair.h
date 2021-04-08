@@ -9,7 +9,7 @@ typedef struct node_s
 
 node	*new_node(const char *key, const char *value);
 node	*get_node(const char *key, node *root);
-void	insert(const char *key, const char *value, node **root);
+void	insert(const char *line, const char *equal_pos, node **root);
 void	delete(const char *key, node *root);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: ciglesia <ciglesia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 19:52:40 by ciglesia          #+#    #+#             */
-/*   Updated: 2021/04/07 15:14:30 by ciglesia         ###   ########.fr       */
+/*   Updated: 2021/04/08 10:47:42 by ciglesia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,12 @@
 t_trie	*new_node()
 {
 	t_trie	*new;
-	int		i;
 
 	if (!(new = (t_trie*)malloc(sizeof(t_trie))))
 		return (NULL);
 	if (!(new->map = (t_trie**)malloc(sizeof(t_trie*) * 127))) // ascii
 		return (NULL);
-	i = 0;
-	while (i < 127)
-		new->map[i++] = NULL;
+	memset(new->map, 0, sizeof(t_trie*) * 127);
 	new->end = 0;
 	new->children = 0;
 	new->value = NULL;
@@ -55,9 +52,9 @@ void	insert_trie(t_trie **root, char *cmd, int eq)
 		return ;
 	temp->end = 1;
 	if (cmd[eq + 1])
-		temp->value = ft_strdup(&cmd[eq + 1]);
+		temp->value = strdup(&cmd[eq + 1]);
 	else
-		temp->value = ft_strdup("");
+		temp->value = strdup("");
 }
 
 int		get_value(t_trie *root, char *cmd)
@@ -146,7 +143,7 @@ void	exec_cmd(char *cmd, t_trie **root)
 		if (cmd[0] && cmd[0] == '!')
 		{
 			// erase key and value
-			delete_value(root, &cmd[1], ft_strlen(&cmd[1]), 0);
+			delete_value(root, &cmd[1], strlen(&cmd[1]), 0);
 			return ;
 		}
 		assign = is_assignation(cmd);
@@ -173,7 +170,7 @@ int		main()
 	line = NULL;
     while ((read = getline(&line, &len, stdin)) != -1)
 	{
-		line[ft_strlen(line) - 1] = 0;
+		line[strlen(line) - 1] = 0;
 		exec_cmd(line, &root);
 	}
 	if (line)

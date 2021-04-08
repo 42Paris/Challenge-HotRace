@@ -6,7 +6,7 @@
 /*   By: hthomas <hthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 15:04:19 by hthomas           #+#    #+#             */
-/*   Updated: 2021/04/08 10:11:01 by hthomas          ###   ########.fr       */
+/*   Updated: 2021/04/08 10:13:18 by hthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static unsigned int	hash(char const *key, size_t const size_database, ssize_t co
 
 	i = 0;
 	h = PRIME_1;
-	// size_t len = strlen(key);
 	while (i < len)
 	{
 		h = (h * PRIME_2 + key[i]) % size_database;

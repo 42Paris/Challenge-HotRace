@@ -73,7 +73,7 @@ void		output_value(char *name) {
 
 	elem = lookup(name);
 	if (!elem)
-		printf("%s: Not Found\n", name);
+		printf("%s: Not found\n", name);
 	else
 		printf("%s\n", elem->value);
 }

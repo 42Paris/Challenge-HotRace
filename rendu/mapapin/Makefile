@@ -13,7 +13,7 @@
 NAME = hotrace
 
 C = clang
-CFLAGS = -g
+CFLAGS = -Wall -Wextra -Werror -O3
 
 SRCS = main.c
 

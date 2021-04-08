@@ -6,14 +6,14 @@
 /*   By: gucamuze <gucamuze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 14:31:47 by gucamuze          #+#    #+#             */
-/*   Updated: 2021/04/08 12:31:13 by gucamuze         ###   ########.fr       */
+/*   Updated: 2021/04/08 13:24:51 by gucamuze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HOTRACE_H
 # define HOTRACE_H
 
-# define TABLE_SIZE 300000
+# define TABLE_SIZE 694200
 
 # include <stdio.h>
 # include <ctype.h>

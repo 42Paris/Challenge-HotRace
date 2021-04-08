@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   db.cpp                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edal <edal@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 13:33:18 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/04/07 19:43:18 by edal             ###   ########.fr       */
+/*   Updated: 2021/04/08 11:31:06 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "db.hpp"
@@ -33,13 +33,9 @@ std::string db::search(std::string const key) const
 
 void db::query(std::string const key)
 {
-	std::string out = search(key);
-	// std::cout << "OUT IS " << key.compare("Not found") << std::endl;
-	
+	std::string out = search(key);	
 	if (out.compare("Not found") == 0)
-	{
 		std::cout << key << ": " << out << std::endl;
-	}
 	else
 		std::cout << out << std::endl;
 }

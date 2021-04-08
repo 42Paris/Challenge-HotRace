@@ -6,7 +6,7 @@
 /*   By: edal--ce <edal--ce@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 14:26:55 by edal--ce          #+#    #+#             */
-/*   Updated: 2021/04/07 17:18:36 by edal--ce         ###   ########.fr       */
+/*   Updated: 2021/04/08 11:45:58 by edal--ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 class db {
 
 	public:
-	
 		db();
 		~db();
 		void		push(std::string const &key, std::string const &val);

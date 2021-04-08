@@ -488,7 +488,7 @@ int main(void)
 				print_node(tmp);
 			else
 			{
-				write(1, line, strlen(line));
+				fputs(line, stdout);
 				puts(": Not found");
 			}
 		}
